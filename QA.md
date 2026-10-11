@@ -34,7 +34,7 @@ A：可以参考，但申请条件、名额和时间安排要看申请当年的�
 
 ## Q：想问具体的转系经历或准备过程，怎么问？
 
-A：可以直接来问我，也可以在 [Issues](https://github.com/hezhou0331/good-person-library/issues) 留言。带上你关心的院系和具体问题，聊起来会更方便。也欢迎约饭聊聊！
+A：可以直接来问我，也可以在 [Issues](https://github.com/hezhou0331/thu-transfer-guide/issues) 留言。带上你关心的院系和具体问题，聊起来会更方便。也欢迎约饭聊聊！
 
 ## Q：我有资料或经验想分享，但不会用 GitHub，怎么办？
 
