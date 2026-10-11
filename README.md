@@ -29,7 +29,7 @@
 | 名称 | 链接与说明 |
 | --- | --- |
 | CS 自学指南 | [csdiy.wiki](https://csdiy.wiki/)：计算机自学指南。 |
-| 华清 | [华清入口](https://in.closed.social:9443/pastExam/login/) |
+| 华清大学 课程攻略 共享计划 | [进入网站](https://in.closed.social:9443/pastExam/login/)：里面有很多学习资料，可以去找找。 |
 | THUDA-CRACKER | [pengc02/THUDA-CRACKER](https://github.com/pengc02/THUDA-CRACKER)：自动化系相关课程与生活攻略。 |
 | 计算机系 | [PKUanonym/REKCARC-TSC-UHT](https://github.com/PKUanonym/REKCARC-TSC-UHT)：清华大学计算机系课程攻略。 |
 | 软院 | [Starrah/THSS-CRACKER](https://github.com/Starrah/THSS-CRACKER)：清华软院课程攻略。 |
@@ -39,6 +39,8 @@
 | 某学习部 | [清华云盘分享](https://cloud.tsinghua.edu.cn/d/f8d6d9ef406e448a83f2/) |
 
 部分网站或云盘可能需要登录，访问方式以对应页面为准。如果链接失效，欢迎提 Issue 或 PR 更新。
+
+如果有自动化的课需要学习资料，也可以直接找我。
 
 ## AI 使用教程
 
