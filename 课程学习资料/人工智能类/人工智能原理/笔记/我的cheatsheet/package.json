@@ -1,0 +1,16 @@
+{
+  "name": "ai-cheatsheet",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@vscode/markdown-it-katex": "^1.1.1",
+    "katex": "^0.16.11",
+    "markdown-it": "^14.1.0",
+    "markdown-it-mark": "^4.0.0",
+    "playwright": "^1.49.0"
+  }
+}

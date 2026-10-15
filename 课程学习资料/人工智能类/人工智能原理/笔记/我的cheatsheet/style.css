@@ -1,0 +1,131 @@
+/* ====== 五列 A4 横向 cheatsheet 样式（密排 ~9pt） ====== */
+@page {
+  size: A4 landscape;
+  margin: 4mm;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 10pt;
+  line-height: 1.24;
+  color: #111;
+  column-count: 5;
+  column-gap: 4mm;
+  column-fill: balance;
+  -webkit-column-rule: 0.4pt solid #cfcfcf;
+  column-rule: 0.4pt solid #cfcfcf;
+}
+
+/* 主标题 */
+h1 {
+  font-size: 14pt;
+  text-align: center;
+  margin: 0 0 4px 0;
+  column-span: all;
+  color: #0b3d91;
+  border-bottom: 1.5pt solid #0b3d91;
+  padding-bottom: 2px;
+}
+
+/* 大类标题（黄色高亮横幅，仿参考样式） */
+h2 {
+  font-size: 12.5pt;
+  font-weight: 800;
+  margin: 7px 0 3px 0;
+  padding: 2px 5px;
+  color: #1a1a00;
+  background: #ffe000;
+  border-radius: 2px;
+  break-after: avoid;
+  break-inside: avoid;
+  break-before: avoid;
+}
+
+/* 小类标题 */
+h3 {
+  font-size: 9.6pt;
+  font-weight: 700;
+  margin: 5px 0 1px 0;
+  color: #0b3d91;
+  border-left: 2.5pt solid #0b3d91;
+  padding-left: 4px;
+  break-after: avoid;
+}
+
+/* 段落与列表 */
+p { margin: 1.5px 0; }
+ul, ol { margin: 1.5px 0; padding-left: 13px; }
+li { margin: 0.5px 0; }
+
+/* 避免在不该断的地方分栏 */
+h2, h3, table, .katex-display, li { break-inside: avoid; }
+ul, ol { break-inside: auto; }
+
+/* 高亮（重点标黄） */
+mark { background: #fff35c; padding: 0 1px; border-radius: 1px; }
+
+/* 强调 */
+strong { color: #b30000; }
+
+/* 表格 */
+table {
+  font-size: 8.2pt;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 2px 0;
+  break-inside: avoid;
+}
+th, td {
+  border: 0.4pt solid #999;
+  padding: 0.5px 2.5px;
+  text-align: center;
+  line-height: 1.08;
+}
+th { background: #e8eef9; font-weight: 600; }
+
+/* 数学公式 */
+.katex { font-size: 0.97em; }
+.katex-display { margin: 2px 0; text-align: left; }
+.katex-display > .katex {
+  font-size: 0.86em;
+  text-align: left;
+  white-space: normal;
+  max-width: 100%;
+}
+
+/* 行内代码 / 例题块 */
+code {
+  font-family: "Consolas", monospace;
+  font-size: 0.9em;
+  background: #f0f0f0;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+pre {
+  background: #f5f5f5;
+  border: 0.4pt solid #ccc;
+  border-radius: 2px;
+  padding: 2px 4px;
+  margin: 2px 0;
+  font-size: 7.4pt;
+  line-height: 1.12;
+  white-space: pre-wrap;
+  break-inside: avoid;
+}
+pre code { background: none; padding: 0; }
+
+hr { border: none; border-top: 0.4pt solid #bbb; margin: 2.5px 0; }
+
+/* 例题 / 提示框 */
+blockquote {
+  margin: 2px 0;
+  padding: 1px 5px;
+  border-left: 2.5pt solid #f0a020;
+  background: #fff8e8;
+  font-size: 8.5pt;
+}
+blockquote p { margin: 1px 0; }

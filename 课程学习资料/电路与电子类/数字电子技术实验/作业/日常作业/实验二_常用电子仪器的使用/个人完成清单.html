@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>实验二 · 提交检查清单</title><style>
+
+    :root{color-scheme:light;--ink:#18332f;--muted:#526861;--line:#d5e0d8;--paper:#fff;--wash:#eef3ee;--accent:#216652}
+
+    *{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.75}
+
+    main{max-width:920px;margin:44px auto;padding:0 24px 40px}header{margin-bottom:26px}.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--accent);margin:0 0 8px}h1{font-size:32px;line-height:1.4;margin:0 0 10px}h2{font-size:21px;margin:0 0 12px}h3{font-size:18px;margin:0}p{margin:10px 0}.meta,.muted{color:var(--muted);font-size:14px}.lead{font-size:17px;margin-top:16px}
+
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px;margin:18px 0}.status{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.badge{font-size:13px;background:#e9f3ed;color:var(--accent);border-radius:30px;padding:4px 12px;white-space:nowrap}.task{border-top:1px solid var(--line);padding:22px 0 0;margin-top:24px}.task:first-of-type{border-top:0;padding-top:0;margin-top:0}.check{display:flex;align-items:flex-start;gap:12px;cursor:pointer}.check input{accent-color:var(--accent);flex:none;width:19px;height:19px;margin:6px 0 0}.check span{display:block}.check:has(input:checked) h3,.check:has(input:checked) strong{color:#648074}.body{margin-left:31px}ul,ol{padding-left:22px;margin:10px 0}li{margin:4px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}th{background:#f2f6f1;font-weight:600}td:first-child{width:31%;white-space:nowrap}.value{font-variant-numeric:tabular-nums}details{margin:14px 0 0}summary{color:var(--accent);cursor:pointer;font-weight:600;font-size:14px}figure{margin:12px 0 0}img{width:100%;height:auto;display:block;border-radius:8px;border:1px solid var(--line)}figcaption{font-size:13px;color:var(--muted);margin-top:6px}.finish{display:grid;gap:14px}.finish .check{padding:12px 0;border-top:1px solid var(--line)}.finish .check:first-child{border-top:0;padding-top:0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}a{color:var(--accent);text-underline-offset:3px}button{font:inherit;border:1px solid var(--line);background:white;color:var(--ink);border-radius:8px;padding:7px 14px;cursor:pointer}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #a8cbbc;outline-offset:3px}.note{background:#f3f6f0;border-left:3px solid #acc8b5;padding:10px 14px;margin:14px 0;font-size:14px}.done{margin:0;padding-left:22px}.footer{font-size:13px;color:var(--muted);margin-top:20px}
+
+    @media(max-width:600px){main{margin:24px auto;padding:0 14px 28px}h1{font-size:27px}.panel{padding:18px;border-radius:12px}.body{margin-left:0}td:first-child{white-space:normal}.status{align-items:flex-start}table{font-size:13px}th,td{padding:8px}}
+
+    @page{size:A4;margin:14mm}
+
+    @media print{body{background:white;font-size:9.5pt;line-height:1.5}main{margin:0;max-width:none;padding:0}h1{font-size:19pt}h2{font-size:13pt}h3{font-size:11pt}.lead{font-size:11pt;margin:8px 0}.panel{border-radius:0;margin:8px 0;padding:10px;break-inside:auto}.task{break-inside:avoid;margin-top:14px;padding-top:14px}.body{margin-left:25px}.status{margin-bottom:8px}table{font-size:9pt;margin:8px 0}th,td{padding:5px 8px}p{margin:7px 0}.actions,.footer{display:none}.badge{border:1px solid var(--line);background:white}details{display:none}a{color:var(--ink);text-decoration:none}.note{background:white}input{accent-color:black}header{margin-bottom:8px}.finish{gap:6px}.finish .check{padding:7px 0}}
+
+
+
+
+
+    .reference-figure{margin:18px 0;border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden}.reference-figure .diagram{overflow-x:auto}.reference-figure svg{display:block;width:100%;min-width:680px;height:auto}.reference-figure figcaption{padding:9px 14px;margin:0;border-top:1px solid var(--line)}.drawing-step{font-size:14px;color:var(--ink)}
+
+    @media print{.reference-figure{border-radius:0;break-inside:avoid;margin:9px 0}.reference-figure svg{min-width:0;max-height:70mm}.reference-figure figcaption{font-size:8pt;padding:5px 8px}.drawing-step{font-size:9pt}.reference-figure .diagram{overflow:visible}}
+
+  
+
+.preview img{max-width:760px;margin:auto}.preview figure{margin:24px 0}.preview figcaption{text-align:center}@media print{.preview{display:none}}
+
+</style></head><body><main>
+
+<header><p class="eyebrow">实验二 · 常用电子仪器的使用</p><h1>提交检查清单</h1><p class="meta">刘江宇 · student · 自52</p><p class="lead">报告已整理为提交版，三幅波形采用Python电子描绘。</p><div class="actions"><a href="提交稿/student仪器使用.pdf">打开最新提交PDF</a><button type="button" onclick="window.print()">打印清单</button></div></header>
+
+<section class="panel"><h2>报告已完成</h2><ul><li>必做1～5与两项选做：数据表、波形、实测照片和分析。</li><li>实验总结三部分，以及助教耐心陪同和一对一指导的感悟与感谢。</li><li>思考题、姓名、学号、班级；共13页，已检查排版。</li></ul></section>
+
+<section class="panel"><h2>提交前最后两步</h2><div class="finish"><label class="check"><input type="checkbox" data-key="verify"><span><strong>打开最新PDF核对姓名、学号与文件内容</strong><br><span class="muted">文件名：student仪器使用.pdf。</span></span></label><label class="check"><input type="checkbox" data-key="submit"><span><strong>在网络学堂上传并确认提交成功</strong><br><span class="muted">保存提交成功的页面或回执。</span></span></label></div></section>
+
+<section class="panel preview"><h2>报告中的电子波形</h2><figure><img src="%E6%8A%A5%E5%91%8A%E7%B4%A0%E6%9D%90/%E7%94%B5%E5%AD%90%E6%B3%A2%E5%BD%A2/%E5%BF%85%E5%81%9A1_Demo2.png" alt="图1 · Demo2矩形脉冲"><figcaption>图1 · Demo2矩形脉冲</figcaption></figure>
+
+<figure><img src="%E6%8A%A5%E5%91%8A%E7%B4%A0%E6%9D%90/%E7%94%B5%E5%AD%90%E6%B3%A2%E5%BD%A2/%E5%BF%85%E5%81%9A3_%E4%B8%8A%E5%8D%87%E6%B2%BF.png" alt="图2 · 上升沿"><figcaption>图2 · 上升沿</figcaption></figure>
+
+<figure><img src="%E6%8A%A5%E5%91%8A%E7%B4%A0%E6%9D%90/%E7%94%B5%E5%AD%90%E6%B3%A2%E5%BD%A2/%E5%BF%85%E5%81%9A4_%E7%9B%B4%E6%B5%81%E5%81%8F%E7%A7%BB.png" alt="图3 · DC耦合三角波"><figcaption>图3 · DC耦合三角波</figcaption></figure></section><p class="footer">本页仅供本人使用，提交文件为上方链接中的PDF。</p></main>
+
+<script>(()=>{const key='digital-lab-2026-experiment-2-final-submission';let state={};try{state=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch(e){}document.querySelectorAll('input[data-key]').forEach(box=>{box.checked=state[box.dataset.key]===true;box.addEventListener('change',()=>{state[box.dataset.key]=box.checked;try{localStorage.setItem(key,JSON.stringify(state))}catch(e){}})})})()</script></body></html>

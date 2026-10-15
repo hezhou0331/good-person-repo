@@ -1,0 +1,615 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=2.05cm,headheight=15pt]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\setlist[enumerate]{itemsep=0.55em,topsep=0.25em,leftmargin=2.25em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{随机数学与统计 2020 秋期末回忆版复原}
+\rhead{答案版}
+\cfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\definecolor{ansblue}{RGB}{22,78,140}
+\definecolor{ansred}{RGB}{150,35,35}
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\N}{\mathcal N}
+\newcommand{\Exp}{\operatorname{Exp}}
+\newcommand{\U}{\operatorname U}
+\newcommand{\GammaDist}{\operatorname{Gamma}}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\ans}[1]{\textcolor{ansblue}{\textbf{#1}}}
+
+\title{\vspace{-1.2cm}随机数学与统计期末考试\\{\large 2020 年秋季回忆版复原卷答案版}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.4em}
+
+说明：本答案对应同目录下《随机数学与统计2020秋期末回忆版复原》。个别题面为回忆补全版本，因此答案也按该复原题面给出。
+
+\section*{一、}
+设 $X,Y,Z \iid U(0,1)$。
+\begin{enumerate}
+  \item 求 $S=X+Y+Z$ 的分布函数。
+
+  \ans{解：} $S$ 服从三阶 Irwin--Hall 分布。用卷积或容斥公式
+  \[
+    F_S(s)=\frac{1}{6}\sum_{k=0}^{\lfloor s\rfloor}(-1)^k
+    \binom{3}{k}(s-k)^3,\qquad 0\le s\le 3.
+  \]
+  因而
+  \[
+    F_S(s)=
+    \begin{cases}
+      0, & s<0,\\[0.2em]
+      \dfrac{s^3}{6}, & 0\le s\le 1,\\[0.7em]
+      \dfrac{s^3-3(s-1)^3}{6}, & 1\le s\le 2,\\[0.7em]
+      1-\dfrac{(3-s)^3}{6}, & 2\le s\le 3,\\[0.7em]
+      1, & s\ge 3.
+    \end{cases}
+  \]
+
+  \item 求
+  \[
+    \EX\left(X\mid X+Y=\frac12\right),\qquad
+    \EX\left(X\mid X+Y\le \frac12\right).
+  \]
+
+  \ans{解：} 在条件 $X+Y=1/2$ 下，$(X,Y)$ 在直线段
+  \[
+    \{(x,y):x\ge0,\ y\ge0,\ x+y=1/2\}
+  \]
+  上对称，故
+  \[
+    \EX\left(X\mid X+Y=\frac12\right)=\frac14.
+  \]
+  在条件 $X+Y\le 1/2$ 下，$(X,Y)$ 在直角三角形
+  \[
+    \{x\ge0,\ y\ge0,\ x+y\le1/2\}
+  \]
+  上均匀，三角形质心的 $x$ 坐标为底边长度的 $1/3$，故
+  \[
+    \EX\left(X\mid X+Y\le\frac12\right)=\frac{1/2}{3}=\frac16.
+  \]
+
+  \item 求 $-\ln X$ 的矩母函数，并证明
+  \[
+    U=(XY)^Z\sim U(0,1).
+  \]
+
+  \ans{解：} 令 $A=-\ln X$。因 $X\sim U(0,1)$，
+  \[
+    \Prob(A\le a)=\Prob(X\ge e^{-a})=1-e^{-a},\qquad a\ge0,
+  \]
+  故 $A\sim \Exp(1)$。其矩母函数为
+  \[
+    M_A(t)=\EX e^{tA}=\frac{1}{1-t},\qquad t<1.
+  \]
+  再令
+  \[
+    W=-\ln(XY)=(-\ln X)+(-\ln Y).
+  \]
+  因 $-\ln X,-\ln Y \iid \Exp(1)$，故
+  \[
+    W\sim\GammaDist(2,\text{rate }1),\qquad f_W(w)=w e^{-w},\quad w>0.
+  \]
+  又
+  \[
+    -\ln U=-Z\ln(XY)=ZW.
+  \]
+  对 $t\ge0$，由 $Z\sim U(0,1)$ 且与 $W$ 独立，
+  \[
+  \begin{aligned}
+    \Prob(ZW>t)
+    &=\int_t^\infty \Prob\left(Z>\frac{t}{w}\right)w e^{-w}\dd w\\
+    &=\int_t^\infty \left(1-\frac{t}{w}\right)w e^{-w}\dd w\\
+    &=\int_t^\infty (w-t)e^{-w}\dd w=e^{-t}.
+  \end{aligned}
+  \]
+  因此 $-\ln U\sim\Exp(1)$，从而 $U=e^{-(-\ln U)}\sim U(0,1)$。
+\end{enumerate}
+
+\section*{二、}
+设 $f_X(x)=3x^2,\ 0\le x\le1$。给定 $X=x$ 时，
+\[
+  \Prob(Y=k\mid X=x)=x(1-x)^{k-1},\qquad k=1,2,\ldots.
+\]
+即 $Y|X=x\sim Ge(x)$，其中几何分布表示首次成功所需次数。
+
+\begin{enumerate}
+  \item 求 $\EX Y$ 和 $\DD Y$。
+
+  \ans{解：} 对几何分布，
+  \[
+    \EX(Y|X=x)=\frac1x,\qquad
+    \Var(Y|X=x)=\frac{1-x}{x^2}.
+  \]
+  因此
+  \[
+    \EX Y=\EX\left[\EX(Y|X)\right]
+    =\int_0^1 \frac1x 3x^2\dd x
+    =\frac32.
+  \]
+  用方差分解：
+  \[
+    \Var(Y)=\EX[\Var(Y|X)]+\Var(\EX[Y|X]).
+  \]
+  其中
+  \[
+    \EX[\Var(Y|X)]
+    =\int_0^1 \frac{1-x}{x^2}3x^2\dd x
+    =3\int_0^1(1-x)\dd x=\frac32,
+  \]
+  且
+  \[
+    \Var\left(\frac1X\right)=\EX\frac1{X^2}-\left(\EX\frac1X\right)^2
+    =\int_0^1 3\dd x-\left(\frac32\right)^2
+    =3-\frac94=\frac34.
+  \]
+  故
+  \[
+    \DD Y=\Var(Y)=\frac32+\frac34=\frac94.
+  \]
+
+  \item 求
+  \[
+    \Prob\left\{X\le \frac12 \EX(XY)\right\}.
+  \]
+
+  \ans{解：} 先算
+  \[
+    \EX(XY)=\EX\{X\EX(Y|X)\}=\EX(X\cdot 1/X)=1.
+  \]
+  所以所求为
+  \[
+    \Prob\left(X\le\frac12\right)=\int_0^{1/2}3x^2\dd x=\left(\frac12\right)^3=\frac18.
+  \]
+
+  \item 求 $Y$ 的分布。
+
+  \ans{解：} 对 $k=1,2,\ldots$，
+  \[
+  \begin{aligned}
+    \Prob(Y=k)
+    &=\int_0^1 \Prob(Y=k|X=x)f_X(x)\dd x\\
+    &=\int_0^1 x(1-x)^{k-1}\cdot 3x^2\dd x\\
+    &=3\int_0^1 x^3(1-x)^{k-1}\dd x\\
+    &=3B(4,k)=3\frac{\Gamma(4)\Gamma(k)}{\Gamma(k+4)}\\
+    &=\frac{18}{k(k+1)(k+2)(k+3)}.
+  \end{aligned}
+  \]
+  故
+  \[
+    \boxed{\Prob(Y=k)=\frac{18}{k(k+1)(k+2)(k+3)},\quad k=1,2,\ldots.}
+  \]
+\end{enumerate}
+
+\section*{三、}
+设 $(X,Y)$ 在三角形
+\[
+  D=\{(x,y):x>0,\ y>0,\ x+y\le1\}
+\]
+上均匀。该区域面积为 $1/2$，故联合密度为 $f(x,y)=2$。
+
+\begin{enumerate}
+  \item 求 $\EX(Y\mid X=1/2)$。
+
+  \ans{解：} 给定 $X=x$ 时，$Y$ 在 $(0,1-x)$ 上均匀，因此
+  \[
+    Y|X=x\sim U(0,1-x),\qquad \EX(Y|X=x)=\frac{1-x}{2}.
+  \]
+  代入 $x=1/2$ 得
+  \[
+    \EX\left(Y\mid X=\frac12\right)=\frac14.
+  \]
+
+  \item 求
+  \[
+    \EX(Y^2\mid X),\qquad \EX(Y^2\mid X<Y).
+  \]
+
+  \ans{解：} 由 $Y|X=x\sim U(0,1-x)$，
+  \[
+    \EX(Y^2|X=x)=\frac{(1-x)^2}{3},
+  \]
+  故
+  \[
+    \boxed{\EX(Y^2|X)=\frac{(1-X)^2}{3}.}
+  \]
+  再求 $\EX(Y^2|X<Y)$。由对称性 $\Prob(X<Y)=1/2$。分子为
+  \[
+  \begin{aligned}
+    \EX\left[Y^2\ind_{\{X<Y\}}\right]
+    &=2\int_0^{1/2}\int_0^y y^2\dd x\dd y
+      +2\int_{1/2}^1\int_0^{1-y}y^2\dd x\dd y\\
+    &=2\left(\int_0^{1/2}y^3\dd y+\int_{1/2}^1 y^2(1-y)\dd y\right)\\
+    &=2\left(\frac1{64}+\frac{11}{192}\right)=\frac7{48}.
+  \end{aligned}
+  \]
+  因此
+  \[
+    \EX(Y^2|X<Y)=\frac{7/48}{1/2}=\frac7{24}.
+  \]
+
+  \item 求 $X+Y$ 的密度函数。
+
+  \ans{解：} 令 $S=X+Y$。当 $0<s<1$ 时，
+  \[
+    f_S(s)=\int_0^s 2\dd x=2s.
+  \]
+  因而
+  \[
+    f_S(s)=
+    \begin{cases}
+      2s, & 0<s<1,\\
+      0, & \text{其他}.
+    \end{cases}
+  \]
+
+  \item 判断 $X$ 与 $Y-\EX(Y\mid X)$ 是否相关、是否独立，并说明理由。
+
+  \ans{解：} 令
+  \[
+    R=Y-\EX(Y|X)=Y-\frac{1-X}{2}.
+  \]
+  因为
+  \[
+    \EX(R|X)=\EX(Y|X)-\EX(Y|X)=0,
+  \]
+  所以
+  \[
+    \Cov(X,R)=\EX\{X\EX(R|X)\}-\EX X\EX R=0.
+  \]
+  故 $X$ 与 $R$ 不相关。
+
+  但 $R$ 与 $X$ 不独立。事实上，给定 $X=x$ 时，
+  \[
+    R|X=x\sim U\left(-\frac{1-x}{2},\frac{1-x}{2}\right),
+  \]
+  其条件分布的支撑随 $x$ 改变，因此不可能与 $X$ 独立。
+\end{enumerate}
+
+\section*{四、}
+设 $\{B_t:t\ge0\}$ 为标准 Brown 运动。
+
+\begin{enumerate}
+  \item 判断 $\{B_{2t}-B_t:t\ge0\}$ 是否为标准布朗运动，并说明理由。
+
+  \ans{解：} 令 $C_t=B_{2t}-B_t$。虽然
+  \[
+    C_t\sim N(0,t),
+  \]
+  但协方差不满足标准 Brown 运动的协方差结构。若 $0<s\le t$，
+  \[
+  \begin{aligned}
+    \Cov(C_s,C_t)
+    &=\Cov(B_{2s}-B_s,\ B_{2t}-B_t)\\
+    &=2s-\min(2s,t)-s+s\\
+    &=2s-\min(2s,t).
+  \end{aligned}
+  \]
+  例如取 $t\ge2s$，则 $\Cov(C_s,C_t)=0$，而标准 Brown 运动应有 $\Cov(C_s,C_t)=s$。
+  因此 $\{B_{2t}-B_t\}$ 不是标准 Brown 运动。
+
+  \item 判断
+  \[
+    \left(B_2-\frac12B_1,\ B_1,\ B_1+aB_2\right)^{\mathsf T}
+  \]
+  是否服从三维正态分布；若服从，求均值向量和协方差矩阵。再求常数 $a$，使 $B_1$ 与 $B_1+aB_2$ 独立。
+
+  \ans{解：} 因 $(B_1,B_2)$ 为二维正态向量，上述向量是其线性变换，所以服从三维正态分布。均值向量为零向量。
+
+  记
+  \[
+    U=B_2-\frac12B_1,\quad V=B_1,\quad W=B_1+aB_2.
+  \]
+  利用 $\Var(B_1)=1,\ \Var(B_2)=2,\ \Cov(B_1,B_2)=1$，有
+  \[
+    \Var(U)=2+\frac14-1=\frac54,\qquad
+    \Cov(U,V)=1-\frac12=\frac12,
+  \]
+  \[
+    \Cov(U,W)=\Cov(U,B_1)+a\Cov(U,B_2)
+    =\frac12+a\left(2-\frac12\right)=\frac{1+3a}{2},
+  \]
+  \[
+    \Var(V)=1,\qquad
+    \Cov(V,W)=1+a,\qquad
+    \Var(W)=1+2a+2a^2.
+  \]
+  因而协方差矩阵为
+  \[
+    \Sigma=
+    \begin{pmatrix}
+      \frac54 & \frac12 & \frac{1+3a}{2}\\[0.3em]
+      \frac12 & 1 & 1+a\\[0.3em]
+      \frac{1+3a}{2} & 1+a & 1+2a+2a^2
+    \end{pmatrix}.
+  \]
+  因 $B_1$ 与 $B_1+aB_2$ 联合正态，独立等价于协方差为 0：
+  \[
+    \Cov(B_1,B_1+aB_2)=1+a=0.
+  \]
+  故
+  \[
+    \boxed{a=-1.}
+  \]
+
+  \item 求 $\Cov(B_2-B_1,\ B_3-B_2)$，并判断二者是否独立。
+
+  \ans{解：}
+  \[
+  \begin{aligned}
+    \Cov(B_2-B_1,\ B_3-B_2)
+    &=\Cov(B_2,B_3)-\Var(B_2)-\Cov(B_1,B_3)+\Cov(B_1,B_2)\\
+    &=2-2-1+1=0.
+  \end{aligned}
+  \]
+  更直接地，$B_2-B_1$ 与 $B_3-B_2$ 是不相交区间上的 Brown 增量，所以独立。
+
+  \item 求
+  \[
+    \Prob\{B_1+B_2<3\mid B_3=4\}.
+  \]
+
+  \ans{解：} 令 $S=B_1+B_2$。则 $(S,B_3)$ 为二维正态，
+  \[
+    \Var(S)=1+2+2\Cov(B_1,B_2)=1+2+2=5,
+  \]
+  \[
+    \Cov(S,B_3)=\Cov(B_1,B_3)+\Cov(B_2,B_3)=1+2=3,\qquad
+    \Var(B_3)=3.
+  \]
+  因此
+  \[
+    S|B_3=4\sim N\left(\frac{3}{3}\cdot4,\ 5-\frac{3^2}{3}\right)=N(4,2).
+  \]
+  所以
+  \[
+    \Prob(S<3|B_3=4)
+    =\Phi\left(\frac{3-4}{\sqrt2}\right)
+    =\Phi\left(-\frac1{\sqrt2}\right).
+  \]
+\end{enumerate}
+
+\section*{五、}
+设
+\[
+  f_X(x;\theta)=e^{-(x-\theta)}\ind_{\{x>\theta\}},\qquad \theta>0.
+\]
+即 $X=\theta+E$，其中 $E\sim\Exp(1)$。
+
+\begin{enumerate}
+  \item 求 $\theta$ 的矩估计 $\hat\theta_M$ 和最大似然估计 $\hat\theta_{\mathrm{MLE}}$。
+
+  \ans{解：} 因 $\EX X=\theta+1$，矩估计为
+  \[
+    \boxed{\hat\theta_M=\bar X-1.}
+  \]
+  似然函数为
+  \[
+    L(\theta)=\prod_{i=1}^n e^{-(x_i-\theta)}\ind_{\{\theta<x_{(1)}\}}
+    =e^{-\sum_i x_i+n\theta}\ind_{\{0<\theta<x_{(1)}\}},
+  \]
+  其中 $x_{(1)}=\min_i x_i$。在可行区间内似然随 $\theta$ 单调递增，故最大似然估计取边界：
+  \[
+    \boxed{\hat\theta_{\mathrm{MLE}}=X_{(1)}.}
+  \]
+  严格地说，由于密度支撑为 $x>\theta$，最大值在边界处以极限意义取得；通常仍记 MLE 为 $X_{(1)}$。
+
+  \item 判断 $\hat\theta_{\mathrm{MLE}}$ 是否无偏；若不是，求其偏差。
+
+  \ans{解：} 因 $X_i=\theta+E_i$，$E_i\iid\Exp(1)$，所以
+  \[
+    X_{(1)}=\theta+E_{(1)},\qquad E_{(1)}\sim\Exp(n).
+  \]
+  故
+  \[
+    \EX X_{(1)}=\theta+\frac1n.
+  \]
+  因此 $\hat\theta_{\mathrm{MLE}}$ 不是无偏估计，其偏差为
+  \[
+    \operatorname{Bias}(\hat\theta_{\mathrm{MLE}})
+    =\EX X_{(1)}-\theta=\frac1n.
+  \]
+
+  \item 若先验分布为 $\theta\sim \Exp(1)$，求 $\theta$ 的后验分布函数。
+
+  \ans{解：} 记 $m=x_{(1)}$。先验密度为 $\pi(\theta)=e^{-\theta}\ind_{\{\theta>0\}}$。似然为
+  \[
+    L(\theta|x)\propto e^{n\theta}\ind_{\{0<\theta<m\}}.
+  \]
+  后验密度满足
+  \[
+    \pi(\theta|x)\propto e^{(n-1)\theta}\ind_{\{0<\theta<m\}}.
+  \]
+  若 $n>1$，归一化得
+  \[
+    \pi(\theta|x)=
+    \frac{n-1}{e^{(n-1)m}-1}e^{(n-1)\theta},\qquad 0<\theta<m.
+  \]
+  因而后验分布函数为
+  \[
+    F(\theta|x)=
+    \begin{cases}
+      0, & \theta\le0,\\[0.3em]
+      \dfrac{e^{(n-1)\theta}-1}{e^{(n-1)m}-1}, & 0<\theta<m,\\[0.9em]
+      1, & \theta\ge m.
+    \end{cases}
+  \]
+  若 $n=1$，后验密度为 $(1/m)\ind_{\{0<\theta<m\}}$，即 $F(\theta|x)=\theta/m$，$0<\theta<m$。
+
+  \item 设 $N$ 为与样本独立的正整数值随机变量，且 $\EX(1/N)<\infty$。记
+  \[
+    X_{(1)}=\min\{X_1,\ldots,X_N\}.
+  \]
+  证明
+  \[
+    \EX X_{(1)}=\theta+\EX\left(\frac1N\right).
+  \]
+
+  \ans{证明：} 条件于 $N=k$ 时，
+  \[
+    X_{(1)}=\theta+\min(E_1,\ldots,E_k),
+  \]
+  其中 $E_i\iid\Exp(1)$。最小值服从 $\Exp(k)$，故
+  \[
+    \EX(X_{(1)}|N=k)=\theta+\frac1k.
+  \]
+  对 $N$ 再取期望：
+  \[
+    \EX X_{(1)}=\EX\left[\EX(X_{(1)}|N)\right]
+    =\EX\left(\theta+\frac1N\right)
+    =\theta+\EX\left(\frac1N\right).
+  \]
+\end{enumerate}
+
+\section*{六、}
+设
+\[
+  f_X(x;\mu,\sigma)=
+  \frac{1}{\sigma}\sqrt{\frac2\pi}
+  \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}\ind_{\{x>\mu\}}.
+\]
+
+\begin{enumerate}
+  \item 若 $Z\sim N(0,1)$，证明 $X$ 与 $\mu+\sigma |Z|$ 同分布。
+
+  \ans{证明：} 令 $Y=\mu+\sigma|Z|$。当 $y>\mu$ 时，
+  \[
+    \Prob(Y\le y)=\Prob\left(|Z|\le \frac{y-\mu}{\sigma}\right)
+    =2\Phi\left(\frac{y-\mu}{\sigma}\right)-1.
+  \]
+  对 $y$ 求导得
+  \[
+    f_Y(y)=2\varphi\left(\frac{y-\mu}{\sigma}\right)\frac1\sigma
+    =\frac1\sigma\sqrt{\frac2\pi}
+      \exp\left\{-\frac{(y-\mu)^2}{2\sigma^2}\right\},\quad y>\mu.
+  \]
+  这正是题设密度，故 $X\overset d=\mu+\sigma|Z|$。
+
+  \item 求 $(\mu,\sigma)$ 的充分统计量。
+
+  \ans{解：} 样本似然为
+  \[
+    L(\mu,\sigma)
+    =\left(\frac1\sigma\sqrt{\frac2\pi}\right)^n
+      \exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2\right\}
+      \ind_{\{\mu<x_{(1)}\}}.
+  \]
+  展开
+  \[
+    \sum_{i=1}^n(x_i-\mu)^2=\sum_{i=1}^n x_i^2-2\mu\sum_{i=1}^n x_i+n\mu^2.
+  \]
+  由因子分解定理，充分统计量可取
+  \[
+    \boxed{T=\left(X_{(1)},\ \sum_{i=1}^n X_i,\ \sum_{i=1}^n X_i^2\right).}
+  \]
+
+  \item 求 $\hat\mu_{\mathrm{MLE}}$ 和 $\hat\sigma^2_{\mathrm{MLE}}$。
+
+  \ans{解：} 对固定 $\mu$，最大化关于 $\sigma^2$ 的似然得到
+  \[
+    \hat\sigma^2(\mu)=\frac1n\sum_{i=1}^n(x_i-\mu)^2.
+  \]
+  将其代回后，等价于在约束 $\mu<x_{(1)}$ 下最小化
+  \[
+    Q(\mu)=\sum_{i=1}^n(x_i-\mu)^2.
+  \]
+  因为 $Q'(\mu)=2n(\mu-\bar x)$，而可行区间 $\mu<x_{(1)}\le \bar x$ 上 $Q'(\mu)<0$，所以 $Q(\mu)$ 随 $\mu$ 增大而减小，最大似然在边界 $x_{(1)}$ 处以极限意义取得。因此
+  \[
+    \boxed{\hat\mu_{\mathrm{MLE}}=X_{(1)},\qquad
+    \hat\sigma^2_{\mathrm{MLE}}=\frac1n\sum_{i=1}^n(X_i-X_{(1)})^2.}
+  \]
+
+  \item 当 $\mu$ 已知时，对
+  \[
+    H_0:\sigma=1\quad \text{vs.}\quad H_1:\sigma=2
+  \]
+  作似然比检验，给出水平为 $\alpha$ 的拒绝域。
+
+  \ans{解：} 令
+  \[
+    Q=\sum_{i=1}^n(X_i-\mu)^2.
+  \]
+  在 $\mu$ 已知时，似然中与 $\sigma$ 有关的部分为
+  \[
+    L(\sigma)\propto \sigma^{-n}\exp\left(-\frac{Q}{2\sigma^2}\right).
+  \]
+  简单假设下似然比为
+  \[
+    \frac{L(1)}{L(2)}
+    =2^n\exp\left(-\frac{Q}{2}+\frac{Q}{8}\right)
+    =2^n\exp\left(-\frac{3Q}{8}\right).
+  \]
+  该比值随 $Q$ 增大而减小，因此拒绝 $H_0$ 的区域为大 $Q$ 区域。
+
+  在 $H_0:\sigma=1$ 下，由第 1 问，
+  \[
+    X_i-\mu\overset d=|Z_i|,\qquad (X_i-\mu)^2\overset d=Z_i^2,
+  \]
+  因而
+  \[
+    Q=\sum_{i=1}^n(X_i-\mu)^2\sim\chi^2(n).
+  \]
+  水平为 $\alpha$ 的拒绝域为
+  \[
+    \boxed{W=\left\{Q\ge \chi^2_{n,1-\alpha}\right\}.}
+  \]
+\end{enumerate}
+
+\section*{附加题}
+设 $X_1,\ldots,X_n \iid U(0,1)$，令
+\[
+  S_n=\left(\prod_{i=1}^n X_i\right)^{-1/n}.
+\]
+证明
+\[
+  \sqrt n\,(S_n-e)\xrightarrow{D}N(0,e^2).
+\]
+
+\ans{证明：} 令
+\[
+  Y_i=-\ln X_i.
+\]
+因 $X_i\sim U(0,1)$，故 $Y_i\iid\Exp(1)$，于是
+\[
+  \EX Y_i=1,\qquad \Var(Y_i)=1.
+\]
+又
+\[
+  S_n=\exp\left(-\frac1n\sum_{i=1}^n\ln X_i\right)
+      =\exp(\bar Y_n).
+\]
+由中心极限定理，
+\[
+  \sqrt n(\bar Y_n-1)\xrightarrow{D}N(0,1).
+\]
+取 $g(y)=e^y$，则 $g'(1)=e$。由 Delta 方法，
+\[
+  \sqrt n(g(\bar Y_n)-g(1))
+  \xrightarrow{D}N(0,[g'(1)]^2)
+  =N(0,e^2).
+\]
+即
+\[
+  \boxed{\sqrt n(S_n-e)\xrightarrow{D}N(0,e^2).}
+\]
+
+\end{document}

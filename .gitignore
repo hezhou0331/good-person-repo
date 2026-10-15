@@ -4,3 +4,4 @@ Desktop.ini
 ~$*
 *.tmp
 __pycache__/
+.local-publish/

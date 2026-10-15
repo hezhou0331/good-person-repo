@@ -1,0 +1,441 @@
+\documentclass[UTF8,zihao=-4]{ctexart}
+
+\usepackage[a4paper,margin=1.9cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue
+}
+
+\setlist[enumerate]{leftmargin=2em,itemsep=0.35em,topsep=0.3em}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\newcommand{\nodeinfo}[3]{#1(#2,#3,#2+#3)}
+\newcommand{\set}[1]{\{#1\}}
+
+\title{\textbf{人工智能原理 8 题模拟卷参考答案}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. 启发式图搜索}
+
+由题图可读出有向边及代价为
+\[
+\begin{aligned}
+&S\to A:2,\quad S\to B:5,\quad A\to C:2,\quad A\to D:5,\\
+&B\to D:1,\quad B\to G:10,\quad C\to G:6,\\
+&D\to E:1,\quad E\to G:3.
+\end{aligned}
+\]
+启发函数为
+\[
+h(S)=7,\ h(A)=6,\ h(B)=5,\ h(C)=4,\ h(D)=4,\ h(E)=2,\ h(G)=0.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item 贪婪最佳优先搜索只按 $h(n)$ 选取 OPEN 中最小者。
+
+\begin{center}
+\begin{tabular}{c l l}
+\toprule
+步骤 & 扩展结点 & OPEN 中候选结点，按 $h$ 排序 \\
+\midrule
+0 & $S$ & $B(5), A(6)$ \\
+1 & $B$ & $G(0), D(4), A(6)$ \\
+2 & $G$ & 到达目标 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+因此得到路径
+\[
+S\to B\to G,\qquad \text{总代价}=5+10=15.
+\]
+贪婪搜索选择的是看起来离目标最近的结点，不保证最优。
+
+\item A* 图搜索按
+\[
+f(n)=g(n)+h(n)
+\]
+选择 OPEN 中 $f$ 最小的结点。若 $f$ 相同，这里按字母顺序打破平局。每个括号写为 $(g,h,f)$。
+
+\begin{center}
+\footnotesize
+\begin{tabularx}{\linewidth}{c >{\centering\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}X}
+\toprule
+步骤 & 扩展结点 & 扩展后 OPEN 中主要候选 \\
+\midrule
+0 & $S(0,7,7)$ & $A(2,6,8),\ B(5,5,10)$ \\
+1 & $A(2,6,8)$ & $C(4,4,8),\ B(5,5,10),\ D(7,4,11)$ \\
+2 & $C(4,4,8)$ & $B(5,5,10),\ G(10,0,10),\ D(7,4,11)$ \\
+3 & $B(5,5,10)$ & $D$ 被改进为 $D(6,4,10)$；$G$ 经 $B$ 得 $g=15$，不更新；OPEN 为 $D(6,4,10),\ G(10,0,10)$ \\
+4 & $D(6,4,10)$ & $E(7,2,9),\ G(10,0,10)$ \\
+5 & $E(7,2,9)$ & 经 $E$ 到 $G$ 的代价为 $10$，与已有 $G$ 相同；OPEN 为 $G(10,0,10)$ \\
+6 & $G(10,0,10)$ & 目标结点出队，停止 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+若相同代价不更换父结点，则可回溯得到
+\[
+S\to A\to C\to G,\qquad \text{总代价}=2+2+6=10.
+\]
+如果在相同代价时允许更新父结点，也可能得到 $S\to B\to D\to E\to G$，总代价同样为 $10$。
+
+\item 判断启发函数是否可采纳。各结点到目标的真实最短代价为
+\[
+h^*(G)=0,\ h^*(E)=3,\ h^*(D)=4,\ h^*(C)=6,\ h^*(B)=5,\ h^*(A)=8,\ h^*(S)=10.
+\]
+逐一比较可得
+\[
+h(n)\le h^*(n)
+\]
+对所有结点都成立，所以该启发函数是可采纳的。
+
+一致性要求对每条边 $u\to v$ 都满足
+\[
+h(u)\le c(u,v)+h(v).
+\]
+大多数边满足，但
+\[
+D\to E:\qquad h(D)=4>1+h(E)=3.
+\]
+因此该启发函数不一致。
+
+\item 在 A* 或一致代价搜索中，不能在“生成”目标结点时立即停止。因为此时 OPEN 中可能还存在另一路径，之后能以更小代价到达目标。正确停止条件通常是：目标结点作为当前 OPEN 中 $f$ 值最小的结点被取出扩展时停止。这样才能保证在相应条件下得到最优解。
+\end{enumerate}
+
+\section*{2. 与或树搜索与信念状态}
+
+状态为房间 $1,2,3,4$，目标状态为 $4$。动作只有 $R$，转移为
+\[
+\begin{aligned}
+\mathrm{Result}(1,R)&=\set{2,3},\\
+\mathrm{Result}(2,R)&=\set{3,4},\\
+\mathrm{Result}(3,R)&=\set{4},\\
+\mathrm{Result}(4,R)&=\set{4}.
+\end{aligned}
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item 普通搜索中的结点表示一个确定状态。与或树中，OR 结点表示智能体可以选择动作，AND 结点表示执行动作后环境可能产生多个结果，所有结果分支都必须能成功。目标测试为当前房间是否为 $4$。
+
+\item 从初始房间 $1$ 出发，深度不超过 $3$ 的与或搜索树可写为
+\[
+1 \xrightarrow{R} \set{2,3}.
+\]
+其中：
+\[
+2\xrightarrow{R}\set{3,4},\qquad 3\xrightarrow{R}\set{4},\qquad 4\ \text{为目标，停止}.
+\]
+所以一个条件计划为
+\[
+\pi(1)=R,\qquad \pi(2)=R,\qquad \pi(3)=R,\qquad \pi(4)=\text{停止}.
+\]
+该计划保证最坏情况下 $1\to 2\to 3\to 4$，三步内到达目标。
+
+\item 初始信念状态为 $B_0=\set{1,2}$。连续执行三次 $R$：
+\[
+\begin{aligned}
+B_1&=\mathrm{Result}(1,R)\cup \mathrm{Result}(2,R)=\set{2,3}\cup \set{3,4}=\set{2,3,4},\\
+B_2&=\mathrm{Result}(2,R)\cup \mathrm{Result}(3,R)\cup \mathrm{Result}(4,R)=\set{3,4}\cup\set{4}\cup\set{4}=\set{3,4},\\
+B_3&=\mathrm{Result}(3,R)\cup\mathrm{Result}(4,R)=\set{4}.
+\end{aligned}
+\]
+因此三次动作后一定在目标房间 $4$。
+
+\item 普通搜索适用于确定性、完全可观测问题；与或树搜索适用于完全可观测但动作结果不确定的问题，输出条件计划；信念状态搜索适用于不可完全观测问题，搜索对象是一组可能状态。
+\end{enumerate}
+
+\section*{3. 搜索算法选择}
+
+已知分支因子 $b=4$，最浅目标深度 $d=6$，最大深度 $m=20$，单位步长代价，内存限制为 $10^4$ 个结点。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 三种算法性质如下：
+
+\begin{center}
+\begin{tabular}{c c c c}
+\toprule
+算法 & 完备性 & 最优性 & 空间复杂度 \\
+\midrule
+BFS & 有限分支时完备 & 单位代价下最优 & $O(b^d)$ \\
+DFS & 有限深度且避免环时完备 & 一般不最优 & $O(bm)$ \\
+IDS & 有限分支时完备 & 单位代价下最优 & $O(bd)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\item BFS 到深度 $6$ 需要生成的结点数约为
+\[
+\sum_{i=0}^{6}4^i=\frac{4^7-1}{4-1}=\frac{16384-1}{3}=5461.
+\]
+若只看最深层规模，则为 $4^6=4096$。二者都低于 $10^4$，因此在本题给定深度下 BFS 的内存大致可接受。
+
+\item IDS 重复进行深度限制搜索，扩展结点数可写为
+\[
+\sum_{\ell=0}^{d}\sum_{i=0}^{\ell} b^i
+=\sum_{i=0}^{d}(d-i+1)b^i.
+\]
+代入 $b=4,d=6$：
+\[
+1+5+21+85+341+1365+5461=7279.
+\]
+虽然会重复扩展浅层结点，但总量仍由最深层主导，时间复杂度仍是 $O(b^d)$，空间复杂度只有 $O(bd)$。
+
+\item 如果严格强调内存限制并要求单位代价下找到最浅目标，推荐 IDS，因为它同时具有完备性、单位代价最优性和线性级空间开销。本题中 BFS 的估算内存也没有超过 $10^4$，所以 BFS 也能工作；但更稳妥的通用选择是 IDS。
+\end{enumerate}
+
+\section*{4. Softmax 分类器与交叉熵}
+
+输入
+\[
+x=\begin{bmatrix}2\\1\end{bmatrix},\quad
+W=\begin{bmatrix}1&0\\0&1\\-1&1\end{bmatrix},\quad
+b=\begin{bmatrix}0\\0.5\\-0.5\end{bmatrix},\quad
+y=\begin{bmatrix}0\\1\\0\end{bmatrix}.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item 线性得分为
+\[
+z=Wx+b
+=\begin{bmatrix}
+2\\
+1.5\\
+-1.5
+\end{bmatrix}.
+\]
+Softmax 概率为
+\[
+p_i=\frac{e^{z_i}}{\sum_j e^{z_j}}.
+\]
+由于
+\[
+e^2\approx 7.389,\qquad e^{1.5}\approx 4.482,\qquad e^{-1.5}\approx 0.223,
+\]
+所以
+\[
+p\approx
+\begin{bmatrix}
+0.611\\
+0.371\\
+0.018
+\end{bmatrix}.
+\]
+真实类别为第 $2$ 类，交叉熵损失为
+\[
+L=-\log p_2\approx -\log(0.371)\approx 0.993.
+\]
+
+\item Softmax 加交叉熵的梯度为
+\[
+\frac{\partial L}{\partial z}=p-y
+\approx
+\begin{bmatrix}
+0.611\\
+-0.629\\
+0.018
+\end{bmatrix}.
+\]
+
+\item 因为 $z=Wx+b$，所以
+\[
+\frac{\partial L}{\partial W}=(p-y)x^\top,\qquad
+\frac{\partial L}{\partial b}=p-y.
+\]
+即
+\[
+\frac{\partial L}{\partial W}\approx
+\begin{bmatrix}
+1.222&0.611\\
+-1.258&-0.629\\
+0.036&0.018
+\end{bmatrix},\qquad
+\frac{\partial L}{\partial b}\approx
+\begin{bmatrix}
+0.611\\
+-0.629\\
+0.018
+\end{bmatrix}.
+\]
+学习率 $\eta=0.1$ 时，一步 SGD 更新为
+\[
+W_{\mathrm{new}}=W-\eta\frac{\partial L}{\partial W}
+\approx
+\begin{bmatrix}
+0.878&-0.061\\
+0.126&1.063\\
+-1.004&0.998
+\end{bmatrix},
+\]
+\[
+b_{\mathrm{new}}=b-\eta\frac{\partial L}{\partial b}
+\approx
+\begin{bmatrix}
+-0.061\\
+0.563\\
+-0.502
+\end{bmatrix}.
+\]
+
+\item Softmax 将多类输出归一化为互斥类别的概率分布，交叉熵等价于最大化正确类别的对数似然。二者组合后梯度简洁为 $p-y$，训练稳定且对错误的高置信预测惩罚较强。若对独立类别概率使用 MSE，通常缺少这种多类互斥的概率解释，梯度也可能较弱。
+\end{enumerate}
+
+\section*{5. 欠拟合、过拟合与模型选择}
+
+训练集和验证集损失如下：
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\toprule
+模型 & 容量 & 正则化 & 训练损失 & 验证损失 \\
+\midrule
+A & 小 & 无 & 0.82 & 0.88 \\
+B & 中 & 无 & 0.35 & 0.42 \\
+C & 大 & 无 & 0.12 & 0.75 \\
+D & 大 & L2, $\lambda=0.01$ & 0.23 & 0.31 \\
+E & 大 & Dropout, $p=0.5$ & 0.27 & 0.34 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}[label=(\arabic*)]
+\item 模型 A 训练损失和验证损失都高，且二者差距不大，属于欠拟合。模型 C 训练损失很低但验证损失很高，泛化差距大，属于过拟合。
+
+\item 应选择模型 D。它的验证损失最低，为 $0.31$，说明在当前候选模型中泛化效果最好。模型 E 也通过 Dropout 缓解了过拟合，但验证损失 $0.34$ 略高于 D。
+
+\item L2 正则化在损失中加入 $\lambda\lVert W\rVert_2^2$，抑制过大的权重，使模型更平滑、降低方差。Dropout 在训练时随机丢弃一部分神经元，减少特征共适应，具有近似模型集成的效果。早停法通过监控验证损失，在验证性能开始变差前停止训练，从而避免继续拟合训练集噪声。
+
+\item 不能用测试集调超参数或选模型。因为反复根据测试集结果调整模型会把测试集信息泄漏到训练流程中，导致最终测试误差偏乐观，不能代表真实泛化能力。正确做法是使用验证集选模型，最后只在测试集上评估一次。
+\end{enumerate}
+
+\section*{6. 梯度检查、初始化与激活函数}
+
+\begin{enumerate}[label=(\arabic*)]
+\item 中心差分估计为
+\[
+g_{\mathrm{num}}
+=\frac{L(\theta+\varepsilon)-L(\theta-\varepsilon)}{2\varepsilon}
+=\frac{0.693153-0.693147}{2\times 10^{-5}}
+=\frac{0.000006}{0.00002}
+=0.3000.
+\]
+
+\item 解析梯度为 $g_{\mathrm{analytic}}=0.3002$，相对误差可取
+\[
+\frac{|g_{\mathrm{num}}-g_{\mathrm{analytic}}|}
+{\max(1,|g_{\mathrm{num}}|,|g_{\mathrm{analytic}}|)}
+=\frac{|0.3000-0.3002|}{1}=2\times 10^{-4}.
+\]
+误差较小，说明该梯度实现基本可信。
+
+\item 若
+\[
+a=\tanh z,
+\]
+则
+\[
+\frac{\partial a}{\partial z}=1-\tanh^2 z=1-a^2.
+\]
+相比 sigmoid，tanh 的输出以 $0$ 为中心，通常更利于优化；但当 $|z|$ 很大时，tanh 仍会饱和，导数接近 $0$，可能出现梯度消失。
+
+\item 不能把同一层所有权重都初始化为 $0$。因为同层神经元会得到完全相同的梯度更新，始终保持相同参数，无法学习到不同特征，这称为对称性无法打破。
+
+\item Xavier 和 He 初始化的直觉是让前向传播的激活方差、反向传播的梯度方差在层间大致保持稳定。Xavier 初始化通常用于 tanh/sigmoid，方差规模约与 $2/(\mathrm{fan\_in}+\mathrm{fan\_out})$ 有关；He 初始化通常用于 ReLU，方差规模约为 $2/\mathrm{fan\_in}$。
+\end{enumerate}
+
+\section*{7. UCB 多臂赌博机}
+
+UCB 选择准则为
+\[
+\mathrm{UCB}_t(a)=Q_t(a)+c\sqrt{\frac{\ln t}{N_t(a)}}.
+\]
+已知 $t=30,c=1.5$，并且
+\[
+\ln 30\approx 3.401.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item 三个臂的 UCB 值为
+\[
+\begin{aligned}
+\mathrm{UCB}(A)&=1.20+1.5\sqrt{\frac{3.401}{10}}\approx 1.20+0.875=2.075,\\
+\mathrm{UCB}(B)&=1.00+1.5\sqrt{\frac{3.401}{2}}\approx 1.00+1.956=2.956,\\
+\mathrm{UCB}(C)&=1.15+1.5\sqrt{\frac{3.401}{18}}\approx 1.15+0.652=1.802.
+\end{aligned}
+\]
+因此本轮应选择臂 $B$。
+
+\item 若选择 $B$ 后得到奖励 $R=1.8$，则 $N(B)$ 从 $2$ 变为 $3$。增量平均更新为
+\[
+Q_{\mathrm{new}}(B)
+=Q_{\mathrm{old}}(B)+\frac{1}{N_{\mathrm{new}}(B)}(R-Q_{\mathrm{old}}(B))
+=1.00+\frac{1}{3}(1.8-1.0)
+\approx 1.267.
+\]
+
+\item 若将 $c$ 改为 $0.1$，探索奖励项会显著减小，算法更偏向利用当前平均奖励最高的臂。此时决策会更接近贪心策略。
+
+\item 贪心法总选择当前 $Q$ 最大的臂，几乎没有显式探索；$\varepsilon$-贪心以 $1-\varepsilon$ 的概率贪心，以 $\varepsilon$ 的概率随机探索；乐观初值通过给初始 $Q$ 设大值鼓励早期探索；UCB 则给访问次数少的臂加入不确定性奖励。
+
+\item UCB 中的 $Q_t(a)$ 是利用项，表示当前估计收益；$c\sqrt{\ln t/N_t(a)}$ 是探索项。随着某个臂被选择次数 $N_t(a)$ 增加，它的不确定性下降，探索项变小；随着总时间 $t$ 增大，长期未尝试的臂会逐渐重新获得较大的探索优势。
+\end{enumerate}
+
+\section*{8. SARSA、Q-learning 与 DQN}
+
+已知
+\[
+Q(s_0,a_R)=0.4,\quad Q(s_1,a_L)=0.2,\quad Q(s_1,a_R)=0.9,
+\]
+行为策略在 $s_1$ 实际选择 $a_L$，并且
+\[
+\alpha=0.5,\qquad \gamma=0.9,\qquad r=-1.
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+\item SARSA 使用实际采取的下一动作 $a_L$：
+\[
+\text{target}_{\mathrm{SARSA}}
+=r+\gamma Q(s_1,a_L)
+=-1+0.9\times 0.2=-0.82.
+\]
+因此
+\[
+Q_{\mathrm{new}}(s_0,a_R)
+=0.4+0.5(-0.82-0.4)
+=0.4-0.61=-0.21.
+\]
+
+\item Q-learning 使用下一状态的最大动作价值：
+\[
+\text{target}_{Q}
+=r+\gamma \max_{a'}Q(s_1,a')
+=-1+0.9\times 0.9=-0.19.
+\]
+因此
+\[
+Q_{\mathrm{new}}(s_0,a_R)
+=0.4+0.5(-0.19-0.4)
+=0.4-0.295=0.105.
+\]
+
+\item SARSA 是 on-policy 方法，因为它用行为策略实际选择的下一动作来构造目标，学习的是当前含探索策略的价值。Q-learning 是 off-policy 方法，因为它不管行为策略实际选了什么动作，都用 $\max_{a'}Q(s',a')$ 构造贪心目标，学习目标策略的最优动作价值。
+
+\item 在悬崖行走问题中，SARSA 更保守。原因是 SARSA 的更新会考虑 $\varepsilon$-贪心探索可能带来的失足风险，靠近悬崖的动作价值会被这种风险拉低；而 Q-learning 假设未来都采取贪心最优动作，容易偏向理论上更短但更危险的路径。
+
+\item DQN 用神经网络 $Q_\theta(s,a)$ 近似 Q 表，输入状态，输出各动作价值。经验回放将交互得到的转移样本存入缓冲区，再随机采样小批量训练，从而降低样本相关性并提高数据利用率。目标网络用一份延迟更新的网络参数计算 TD 目标，减轻目标值随主网络快速变化而造成的不稳定。
+\end{enumerate}
+
+\end{document}

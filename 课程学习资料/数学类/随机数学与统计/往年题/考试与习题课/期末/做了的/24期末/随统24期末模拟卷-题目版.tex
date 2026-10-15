@@ -1,0 +1,93 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0.45em,topsep=0.35em,leftmargin=2.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+
+\title{\vspace{-1.2cm}随机数学与统计 24 期末模拟卷\\题目版}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+说明：本卷按 2024 秋期末题型仿制，共六大题。除特别说明外，随机变量之间的独立性均按题意给出。
+
+\section*{一、}
+设 $X_1,\ldots,X_n \iid U(0,2)$。
+\begin{enumerate}
+  \item 求
+  \[
+    \Prob\{X_1+X_2=\EX(X_1+X_2)\},\qquad
+    \Prob\{X_1+X_2\le \EX(X_1+X_2)\}.
+  \]
+  \item 令 $Y=(X_1-1)^2$，求 $Y$ 的分布函数和密度函数，并指出 $Y$ 服从什么常见分布。
+  \item 求 $\varphi_{X_1}(t)$ 与 $\varphi_{X_1-X_2}(t)$。
+  \item 令 $T_n=\max_{1\le i\le n}|X_i-1|$，证明 $T_n\xrightarrow{P}1$。
+\end{enumerate}
+
+\section*{二、}
+设 $X\sim \operatorname{Exp}(\lambda)$，$\lambda$ 未知，且 $X$ 的中位数为 $\ln 4$。
+\begin{enumerate}
+  \item 确定 $\lambda$，并求 $\Prob\{X>\EX X\}$。
+  \item 求 $\EX(X\mid X>\EX X)$。
+  \item 设 $\eta$ 与 $X$ 独立，且
+  \[
+    \Prob\{\eta=1\}=\Prob\{\eta=3\}=\frac12,
+  \]
+  求 $\Prob\{\eta X>2\}$。
+  \item 设 $X_1,\ldots,X_n$ 与 $X$ 同分布且相互独立，记
+  $X_{(1)}=\min_{1\le i\le n}X_i$。证明 $e^{-n\lambda X_{(1)}}\sim U(0,1)$。
+\end{enumerate}
+
+\section*{三、}
+设二维随机变量 $(X,Y)$ 的联合密度为
+\[
+  f_{X,Y}(x,y)=6e^{-x-2y},\qquad 0<x<y.
+\]
+\begin{enumerate}
+  \item 判断 $X$ 与 $Y$ 是否独立，并说明理由。
+  \item 令 $U=\EX(Y\mid X)$，求 $\Prob\{U>\EX U\}$。
+  \item 判断 $X$ 与 $Y-\EX(Y\mid X)$ 是否独立，并说明理由。
+\end{enumerate}
+
+\section*{四、}
+设 $\{B_t:t\ge 0\}$ 为标准布朗运动，$B_0=0$。
+\begin{enumerate}
+  \item 令 $Y=B_2+B_3-B_4$，求 $\Prob\{|Y|\le 1\}$。
+  \item 记 $Z=B_3+cB_1$，求常数 $c$ 使 $Y$ 与 $Z$ 独立，并说明理由。
+  \item 求 $\Prob\{B_1>0,\ B_2>0\}$。
+\end{enumerate}
+
+\section*{五、}
+设 $X_1,\ldots,X_n$ 是总体 $X\sim N(0,\sigma^2)$ 的样本。
+\begin{enumerate}
+  \item 求 $\sigma^2$ 的 $1-\alpha$ 双侧等尾置信区间。
+  \item 令 $T_n=\sum_{i=1}^n X_i^2$。判断 $T_n$ 是否为 $\sigma^2$ 的充分统计量；若是，请说明理由，并求 $\EX T_n,\ \DD T_n$。
+  \item 在水平 $\alpha$ 下，求检验
+  \[
+    H_0:\sigma^2=1\quad \text{vs.}\quad H_1:\sigma^2>1
+  \]
+  的似然比检验拒绝域。
+\end{enumerate}
+
+\section*{六、}
+设随机变量 $X$ 的密度为
+\[
+  f(x;\theta)=\frac1\theta x^{1/\theta-1},\qquad 0<x<1,\quad \theta>0,
+\]
+$X_1,\ldots,X_n$ 为来自该总体的样本。
+\begin{enumerate}
+  \item 求 $\hat\theta_{\mathrm{MLE}}$，并判断它是否无偏。
+  \item 判断 $\hat\theta_{\mathrm{MLE}}$ 是否为有效估计，是否为 UMVUE，并说明理由。
+  \item 求 $\sqrt n\,(\hat\theta_{\mathrm{MLE}}-\theta)$ 的极限分布。
+\end{enumerate}
+
+\end{document}

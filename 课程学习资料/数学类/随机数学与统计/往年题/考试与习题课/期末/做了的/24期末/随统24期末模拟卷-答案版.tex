@@ -1,0 +1,305 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.1cm]{geometry}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0.55em,topsep=0.35em,leftmargin=2.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+\newcommand{\Var}{\operatorname{Var}}
+
+\title{\vspace{-1.2cm}随机数学与统计 24 期末模拟卷\\答案版}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\section*{一、}
+设 $X_1,\ldots,X_n \iid U(0,2)$。
+
+\begin{enumerate}
+  \item 因为 $\EX X_i=1$，所以 $\EX(X_1+X_2)=2$。$X_1+X_2$ 为连续型随机变量，
+  \[
+    \Prob\{X_1+X_2=2\}=0.
+  \]
+  又令 $Z_i=X_i-1$，则 $Z_1,Z_2 \iid U(-1,1)$。由对称性，
+  \[
+    \Prob\{X_1+X_2\le 2\}
+    =\Prob\{Z_1+Z_2\le 0\}
+    =\frac12.
+  \]
+
+  \item 对 $0\le y\le 1$，
+  \[
+    F_Y(y)=\Prob\{(X_1-1)^2\le y\}
+    =\Prob\{|X_1-1|\le \sqrt y\}
+    =\frac{2\sqrt y}{2}
+    =\sqrt y.
+  \]
+  因此
+  \[
+    F_Y(y)=
+    \begin{cases}
+      0, & y<0,\\
+      \sqrt y, & 0\le y\le 1,\\
+      1, & y>1,
+    \end{cases}
+    \qquad
+    f_Y(y)=\frac{1}{2\sqrt y},\quad 0<y<1.
+  \]
+  所以 $Y\sim \operatorname{Beta}\left(\frac12,1\right)$。
+
+  \item 当 $t\ne 0$ 时，
+  \[
+    \varphi_{X_1}(t)=\EX e^{itX_1}
+    =\frac12\int_0^2 e^{itx}\,dx
+    =e^{it}\frac{\sin t}{t},
+  \]
+  且 $\varphi_{X_1}(0)=1$。由独立性，
+  \[
+    \varphi_{X_1-X_2}(t)
+    =\varphi_{X_1}(t)\varphi_{X_2}(-t)
+    =\left(\frac{\sin t}{t}\right)^2,
+  \]
+  其中 $t=0$ 处取极限值 $1$。
+
+  \item 对 $0\le x\le 1$，
+  \[
+    \Prob\{T_n\le x\}
+    =\Prob\{|X_1-1|\le x,\ldots,|X_n-1|\le x\}
+    =x^n.
+  \]
+  因而对任意 $0<\varepsilon<1$，
+  \[
+    \Prob\{|T_n-1|>\varepsilon\}
+    =\Prob\{T_n<1-\varepsilon\}
+    =(1-\varepsilon)^n\to 0.
+  \]
+  所以 $T_n\xrightarrow{P}1$。
+\end{enumerate}
+
+\section*{二、}
+设 $X\sim \operatorname{Exp}(\lambda)$，中位数为 $\ln 4$。
+
+\begin{enumerate}
+  \item 由
+  \[
+    \Prob\{X\le \ln 4\}=1-e^{-\lambda\ln 4}=\frac12
+  \]
+  得 $\lambda\ln 4=\ln 2$，故 $\lambda=\frac12$。于是 $\EX X=1/\lambda=2$，
+  \[
+    \Prob\{X>\EX X\}=\Prob\{X>2\}=e^{-\lambda\cdot 2}=e^{-1}.
+  \]
+
+  \item 指数分布具有无记忆性：
+  \[
+    \EX(X\mid X>2)=2+\EX X=2+2=4.
+  \]
+  因而 $\EX(X\mid X>\EX X)=4$。
+
+  \item 由全概率公式和独立性，
+  \[
+    \Prob\{\eta X>2\}
+    =\frac12\Prob\{X>2\}+\frac12\Prob\{X>2/3\}
+    =\frac12\left(e^{-1}+e^{-1/3}\right).
+  \]
+
+  \item $X_{(1)}$ 的生存函数为
+  \[
+    \Prob\{X_{(1)}>x\}=\Prob\{X_1>x,\ldots,X_n>x\}=e^{-n\lambda x},
+    \qquad x\ge 0.
+  \]
+  所以 $X_{(1)}\sim \operatorname{Exp}(n\lambda)$。令 $V=e^{-n\lambda X_{(1)}}$，对 $0<v<1$，
+  \[
+    \Prob\{V\le v\}
+    =\Prob\left\{X_{(1)}\ge -\frac{\ln v}{n\lambda}\right\}
+    =e^{-n\lambda\left(-\frac{\ln v}{n\lambda}\right)}
+    =v.
+  \]
+  故 $e^{-n\lambda X_{(1)}}\sim U(0,1)$。
+\end{enumerate}
+
+\section*{三、}
+联合密度为 $f_{X,Y}(x,y)=6e^{-x-2y}$，$0<x<y$。
+
+\begin{enumerate}
+  \item 先求边缘密度：
+  \[
+    f_X(x)=\int_x^\infty 6e^{-x-2y}\,dy=3e^{-3x},\qquad x>0.
+  \]
+  同时 $(X,Y)$ 的取值范围为 $0<X<Y$，不是直积区域。因此 $X$ 与 $Y$ 不独立。
+
+  \item 条件密度为
+  \[
+    f_{Y\mid X=x}(y)=\frac{6e^{-x-2y}}{3e^{-3x}}
+    =2e^{-2(y-x)},\qquad y>x.
+  \]
+  即 $Y=X+V$，其中 $V\sim \operatorname{Exp}(2)$，且由条件密度形式可知 $V$ 与 $X$ 独立。因此
+  \[
+    U=\EX(Y\mid X)=X+\EX V=X+\frac12.
+  \]
+  又 $X\sim \operatorname{Exp}(3)$，所以
+  \[
+    \EX U=\EX X+\frac12=\frac13+\frac12=\frac56.
+  \]
+  于是
+  \[
+    \Prob\{U>\EX U\}
+    =\Prob\left\{X+\frac12>\frac56\right\}
+    =\Prob\left\{X>\frac13\right\}
+    =e^{-1}.
+  \]
+
+  \item 因为
+  \[
+    Y-\EX(Y\mid X)=Y-X-\frac12=V-\frac12,
+  \]
+  且 $V=Y-X$ 与 $X$ 独立，所以 $X$ 与 $Y-\EX(Y\mid X)$ 独立。
+\end{enumerate}
+
+\section*{四、}
+设 $\{B_t:t\ge 0\}$ 为标准布朗运动。
+
+\begin{enumerate}
+  \item $Y=B_2+B_3-B_4$ 为正态随机变量，均值为 $0$。利用
+  $\operatorname{Cov}(B_s,B_t)=\min(s,t)$，
+  \[
+    \Var(Y)=2+3+4+2\{2-2-3\}=3.
+  \]
+  所以 $Y\sim N(0,3)$，从而
+  \[
+    \Prob\{|Y|\le 1\}
+    =\Prob\left\{|N(0,1)|\le \frac1{\sqrt3}\right\}
+    =2\Phi\left(\frac1{\sqrt3}\right)-1.
+  \]
+
+  \item $Y$ 与 $Z=B_3+cB_1$ 都是高斯随机变量，因此独立等价于协方差为 $0$。计算
+  \[
+    \operatorname{Cov}(Y,Z)
+    =\operatorname{Cov}(B_2+B_3-B_4,\ B_3+cB_1)
+    =2+c.
+  \]
+  因此取
+  \[
+    c=-2
+  \]
+  时，$Y$ 与 $Z$ 独立。
+
+  \item $(B_1,B_2)$ 是二维零均值正态向量，相关系数
+  \[
+    \rho=\frac{\operatorname{Cov}(B_1,B_2)}{\sqrt{\Var(B_1)\Var(B_2)}}=\frac1{\sqrt2}.
+  \]
+  对二维中心正态有
+  \[
+    \Prob\{X>0,Y>0\}=\frac14+\frac{1}{2\pi}\arcsin\rho.
+  \]
+  于是
+  \[
+    \Prob\{B_1>0,\ B_2>0\}
+    =\frac14+\frac{1}{2\pi}\arcsin\frac1{\sqrt2}
+    =\frac14+\frac18
+    =\frac38.
+  \]
+\end{enumerate}
+
+\section*{五、}
+设 $X_1,\ldots,X_n$ 来自 $N(0,\sigma^2)$。
+
+\begin{enumerate}
+  \item 记
+  \[
+    T_n=\sum_{i=1}^n X_i^2.
+  \]
+  则 $T_n/\sigma^2\sim \chi_n^2$。设 $\chi^2_{n,p}$ 为 $\chi_n^2$ 分布的 $p$ 分位数，则
+  \[
+    \Prob\left\{\chi^2_{n,\alpha/2}\le \frac{T_n}{\sigma^2}\le
+    \chi^2_{n,1-\alpha/2}\right\}=1-\alpha.
+  \]
+  因此 $\sigma^2$ 的 $1-\alpha$ 双侧等尾置信区间为
+  \[
+    \left[
+      \frac{T_n}{\chi^2_{n,1-\alpha/2}},
+      \frac{T_n}{\chi^2_{n,\alpha/2}}
+    \right].
+  \]
+
+  \item 联合密度为
+  \[
+    (2\pi\sigma^2)^{-n/2}\exp\left(-\frac{1}{2\sigma^2}
+    \sum_{i=1}^n x_i^2\right),
+  \]
+  由因子分解定理，$T_n=\sum_{i=1}^n X_i^2$ 是 $\sigma^2$ 的充分统计量。
+  又 $T_n/\sigma^2\sim \chi_n^2$，故
+  \[
+    \EX T_n=n\sigma^2,\qquad
+    \DD T_n=2n\sigma^4.
+  \]
+
+  \item 似然函数关于 $T_n$ 单调地支持“大 $T_n$”对应“大 $\sigma^2$”。在 $H_0:\sigma^2=1$ 下，
+  $T_n\sim \chi_n^2$。故水平 $\alpha$ 的似然比检验拒绝域可取
+  \[
+    W=\left\{T_n\ge \chi^2_{n,1-\alpha}\right\},
+  \]
+  即
+  \[
+    \sum_{i=1}^n X_i^2\ge \chi^2_{n,1-\alpha}.
+  \]
+\end{enumerate}
+
+\section*{六、}
+密度为 $f(x;\theta)=\frac1\theta x^{1/\theta-1}$，$0<x<1$，$\theta>0$。
+
+\begin{enumerate}
+  \item 令
+  \[
+    S=\sum_{i=1}^n(-\ln X_i).
+  \]
+  对数似然为
+  \[
+    \ell(\theta)=-n\ln\theta+\left(\frac1\theta-1\right)\sum_{i=1}^n\ln X_i
+    =-n\ln\theta-\frac{S}{\theta}+S.
+  \]
+  求导得
+  \[
+    \ell'(\theta)=-\frac n\theta+\frac{S}{\theta^2}.
+  \]
+  令其为 $0$，得
+  \[
+    \hat\theta_{\mathrm{MLE}}=\frac{S}{n}
+    =-\frac1n\sum_{i=1}^n\ln X_i.
+  \]
+  由于 $-\ln X_i\sim \operatorname{Exp}(1/\theta)$，其均值为 $\theta$，故
+  \[
+    \EX\hat\theta_{\mathrm{MLE}}=\theta,
+  \]
+  即 $\hat\theta_{\mathrm{MLE}}$ 无偏。
+
+  \item 设 $Y_i=-\ln X_i$，则 $Y_i\sim \operatorname{Exp}(1/\theta)$，$S=\sum_iY_i\sim \Gamma(n,\text{scale } \theta)$。
+  因而 $S$ 是关于 $\theta$ 的充分且完全统计量；$\hat\theta_{\mathrm{MLE}}=S/n$ 是 $S$ 的函数且无偏，由 Lehmann-Scheffe 定理，它是 $\theta$ 的 UMVUE。
+
+  单个样本的 Fisher 信息为
+  \[
+    I_1(\theta)=\frac1{\theta^2},
+  \]
+  所以任一无偏估计的 Cramer-Rao 下界为 $\theta^2/n$。而
+  \[
+    \Var(\hat\theta_{\mathrm{MLE}})
+    =\frac{1}{n}\Var(Y_1)
+    =\frac{\theta^2}{n}.
+  \]
+  因此它达到 Cramer-Rao 下界，是有效估计。
+
+  \item 由中心极限定理，
+  \[
+    \sqrt n\,(\hat\theta_{\mathrm{MLE}}-\theta)
+    =\sqrt n\left(\frac1n\sum_{i=1}^n Y_i-\theta\right)
+    \xrightarrow{D} N(0,\theta^2).
+  \]
+\end{enumerate}
+
+\end{document}

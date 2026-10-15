@@ -1,0 +1,154 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.15cm]{geometry}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0.45em,topsep=0.25em,leftmargin=2.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.34em}
+
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+
+\title{\vspace{-1.2cm}随机数学与统计期末考试\\{\large 2020 年秋季回忆版复原}}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.6em}
+
+说明：本卷根据 2020 年 12 月 30 日期末考试回忆稿复原。个别回忆稿中缺失的小问已按相同题型作最小补全。
+
+\section*{一、}
+设 $X,Y,Z \iid U(0,1)$。
+\begin{enumerate}
+  \item 求 $X+Y+Z$ 的分布函数。
+  \item 求
+  \[
+    \EX\left(X\mid X+Y=\frac12\right),\qquad
+    \EX\left(X\mid X+Y\le \frac12\right).
+  \]
+  \item 求 $-\ln X$ 的矩母函数，并证明
+  \[
+    U=(XY)^Z\sim U(0,1).
+  \]
+\end{enumerate}
+
+\section*{二、}
+设随机变量 $X$ 的密度函数为
+\[
+  f_X(x)=
+  \begin{cases}
+    3x^2, & 0\le x\le 1,\\
+    0, & \text{其他}.
+  \end{cases}
+\]
+给定 $X=x$ 时，$Y$ 服从参数为 $x$ 的几何分布，即
+\[
+  \Prob\{Y=k\mid X=x\}=x(1-x)^{k-1},\qquad k=1,2,\ldots.
+\]
+\begin{enumerate}
+  \item 求 $\EX Y$ 和 $\DD Y$。
+  \item 求
+  \[
+    \Prob\left\{X\le \frac12 \EX(XY)\right\}.
+  \]
+  \item 求 $Y$ 的分布。
+\end{enumerate}
+
+\section*{三、}
+设 $(X,Y)$ 在区域
+\[
+  D=\{(x,y):x>0,\ y>0,\ x+y\le 1\}
+\]
+上服从均匀分布。
+\begin{enumerate}
+  \item 求 $\EX\left(Y\mid X=\frac12\right)$。
+  \item 求
+  \[
+    \EX(Y^2\mid X),\qquad \EX(Y^2\mid X<Y).
+  \]
+  \item 求 $X+Y$ 的密度函数。
+  \item 判断 $X$ 与 $Y-\EX(Y\mid X)$ 是否相关、是否独立，并说明理由。
+\end{enumerate}
+
+\section*{四、}
+设 $\{B_t:t\ge 0\}$ 为标准布朗运动，$B_0=0$。
+\begin{enumerate}
+  \item 判断 $\{B_{2t}-B_t:t\ge 0\}$ 是否为标准布朗运动，并说明理由。
+  \item 判断随机向量
+  \[
+    \left(B_2-\frac12B_1,\ B_1,\ B_1+aB_2\right)^{\mathsf T}
+  \]
+  是否服从三维正态分布；若服从，求其均值向量和协方差矩阵。再求常数 $a$，使 $B_1$ 与 $B_1+aB_2$ 独立。
+  \item 求 $\Cov(B_2-B_1,\ B_3-B_2)$，并判断二者是否独立。
+  \item 求
+  \[
+    \Prob\{B_1+B_2<3\mid B_3=4\}.
+  \]
+\end{enumerate}
+
+\section*{五、}
+设随机变量 $X$ 的密度函数为
+\[
+  f_X(x;\theta)=
+  \begin{cases}
+    e^{-(x-\theta)}, & x>\theta,\quad \theta>0,\\
+    0, & \text{其他},
+  \end{cases}
+\]
+$X_1,\ldots,X_n$ 为来自该总体的样本。
+\begin{enumerate}
+  \item 求 $\theta$ 的矩估计 $\hat\theta_M$ 和最大似然估计 $\hat\theta_{\mathrm{MLE}}$。
+  \item 判断 $\hat\theta_{\mathrm{MLE}}$ 是否无偏；若不是，求其偏差。
+  \item 若先验分布为 $\theta\sim \operatorname{Exp}(1)$，求 $\theta$ 的后验分布函数。
+  \item 设 $N$ 为与样本独立的正整数值随机变量，且 $\EX(1/N)<\infty$。记
+  \[
+    X_{(1)}=\min\{X_1,\ldots,X_N\}.
+  \]
+  证明
+  \[
+    \EX X_{(1)}=\theta+\EX\left(\frac1N\right).
+  \]
+\end{enumerate}
+
+\section*{六、}
+设随机变量 $X$ 的密度函数为
+\[
+  f_X(x;\mu,\sigma)=
+  \begin{cases}
+    \dfrac{1}{\sigma}\sqrt{\dfrac2\pi}\,
+    \exp\left\{-\dfrac{(x-\mu)^2}{2\sigma^2}\right\},
+    & x>\mu,\\
+    0, & \text{其他},
+  \end{cases}
+\]
+其中 $\mu\in\mathbb R,\ \sigma>0$，$X_1,\ldots,X_n$ 为来自该总体的样本。
+\begin{enumerate}
+  \item 若 $Z\sim N(0,1)$，证明 $X$ 与 $\mu+\sigma |Z|$ 同分布。
+  \item 求 $(\mu,\sigma)$ 的充分统计量。
+  \item 求 $\hat\mu_{\mathrm{MLE}}$ 和 $\hat\sigma^2_{\mathrm{MLE}}$。
+  \item 当 $\mu$ 已知时，对
+  \[
+    H_0:\sigma=1\quad \text{vs.}\quad H_1:\sigma=2
+  \]
+  作似然比检验，给出水平为 $\alpha$ 的拒绝域。
+\end{enumerate}
+
+\section*{附加题}
+设 $X_1,\ldots,X_n \iid U(0,1)$，令
+\[
+  S_n=\left(\prod_{i=1}^n X_i\right)^{-1/n}.
+\]
+证明
+\[
+  \sqrt n\,(S_n-e)\xrightarrow{D}N(0,e^2).
+\]
+
+\vspace{1em}
+{\small 注：原回忆稿第 1 题第 3 小问指数、第 3 题第 3 小问和第 4 题第 3 小问不完整。本复原卷按相邻题意作了最小补全；第 1 题第 3 小问按可成立形式复原为 $U=(XY)^Z$；第 6 题第 4 小问为使检验问题明确，补充“$\mu$ 已知”。}
+
+\end{document}

@@ -1,0 +1,1056 @@
+\documentclass[11pt]{ctexart}
+
+\usepackage[a4paper,margin=18mm]{geometry}
+
+\usepackage{amsmath,amssymb,mathtools}
+
+\usepackage{booktabs,longtable,array}
+
+\usepackage{xcolor}
+
+\usepackage{enumitem}
+
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+
+\setlength{\parskip}{4pt}
+
+\setlength{\LTpre}{3pt}
+
+\setlength{\LTpost}{6pt}
+
+\renewcommand{\arraystretch}{1.18}
+
+\allowdisplaybreaks
+
+\sloppy
+
+\title{2019--2025 信号与系统真题易错点专项总结}
+
+\author{}
+
+\date{2026-06-13}
+
+\begin{document}
+
+\maketitle
+
+
+
+\begin{quote}\small 依据现有 `2019-2025往年题高频考点分析.pdf` 重新整理，只保留真题中反复出现、最容易丢分的点。目标是考前快速排雷，不再展开完整考点频率表。\end{quote}
+
+
+
+\section*{一、最高频易错总表}
+
+
+
+\begin{center}
+
+\small
+
+\begin{longtable}{p{0.10\linewidth} p{0.20\linewidth} p{0.30\linewidth} p{0.30\linewidth}}
+
+\toprule
+
+优先级 & 易错点 & 最常见错法 & 正确抓手 \\
+
+\midrule
+
+1 & ROC 与稳定/因果 & 只看极点位置，不看 ROC & 连续稳定看 ROC 含 \(j\omega\) 轴；离散稳定看 ROC 含单位圆 \\
+
+\addlinespace[2pt]
+
+2 & 初值/终值定理 & 直接代 \(s=0,z=1\)，不查条件 & 先查极点条件；不满足条件就不能用 \\
+
+\addlinespace[2pt]
+
+3 & 最小相位/全通/无失真 & 把三者混成一类 & 最小相位看零点；全通看幅度常数；无失真看线性相位/群延时常数 \\
+
+\addlinespace[2pt]
+
+4 & Z 反变换 & 部分分式做完就写答案，忘 ROC & 同一个 \(X(z)\)，ROC 不同，序列方向不同 \\
+
+\addlinespace[2pt]
+
+5 & 采样与 DFT & 把补零当提高真实频率分辨率 & \(\Delta f=f_s/N=1/T\)，真实分辨率由采样总时长 \(T\) 决定 \\
+
+\addlinespace[2pt]
+
+6 & 线卷积/圆卷积 & 圆卷积长度不足时不折叠 & 先算线卷积，再按 \(N\) 周期折叠 \\
+
+\addlinespace[2pt]
+
+7 & 调制/解调 & 看到调幅就说包络检波 & 普通 AM 可包络检波；AM-SC/SSB 通常要同步/相干解调 \\
+
+\addlinespace[2pt]
+
+8 & 简答题 & 只背定义，不写条件、参数、误差 & 用“定义-条件-公式-结论/措施”四段式 \\
+
+\addlinespace[2pt]
+
+\bottomrule
+
+\end{longtable}
+
+\normalsize
+
+\end{center}
+
+
+
+
+
+\section*{二、系统性质判断}
+
+
+
+\subsection*{1. 稳定性}
+
+
+
+\textbf{错法：} 连续系统看到极点在左半平面就说稳定；离散系统看到极点在单位圆内就说稳定。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 连续 LTI 稳定：ROC 必须包含 \(j\omega\) 轴。\par
+
+\noindent\(\bullet\) 离散 LTI 稳定：ROC 必须包含单位圆 \(|z|=1\)。\par
+
+\noindent\(\bullet\) 因果稳定连续系统：极点全在左半平面。\par
+
+\noindent\(\bullet\) 因果稳定离散系统：极点全在单位圆内。\par
+
+
+
+\textbf{考场提醒：} 题目如果给的是 \(H(s)\)、\(H(z)\) 加 ROC，必须用 ROC 判断；不能只看极点。\par
+
+
+
+\subsection*{2. 因果性}
+
+
+
+\textbf{错法：} 认为两个非因果系统串联一定非因果。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 连续 LTI 因果：\(h(t)=0,\ t<0\)。\par
+
+\noindent\(\bullet\) 离散 LTI 因果：\(h[n]=0,\ n<0\)。\par
+
+\noindent\(\bullet\) 两个非因果系统串联后可能因为响应抵消而变成因果，不能凭单个模块直接下结论。\par
+
+
+
+\subsection*{3. 可逆性}
+
+
+
+\textbf{错法：} 只要系统稳定就说可逆，或者只要 \(H\neq 0\) 就说逆系统可实现。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 可逆至少要求频域上不存在会把某些频率完全抹掉的零点。\par
+
+\noindent\(\bullet\) 若要求逆系统也稳定因果，还要看 \(1/H(s)\) 或 \(1/H(z)\) 的极点和 ROC。\par
+
+
+
+\textbf{一句话：} 可逆性本质上是在问“输出里是否还保留了输入的全部信息”。\par
+
+
+
+\subsection*{4. 最小相位系统}
+
+
+
+\textbf{零极点图好判断：}\par
+
+
+
+\noindent\(\bullet\) 连续系统：因果稳定，且零点也全在左半平面。\par
+
+\noindent\(\bullet\) 离散系统：因果稳定，且零点也全在单位圆内。\par
+
+
+
+\textbf{幅频图 + 相位图判断：}\par
+
+
+
+\noindent\(\bullet\) 只给幅频图，通常不能唯一判断最小相位。\par
+
+\noindent\(\bullet\) 若给幅频和相频，同幅频下相位滞后最小、群延时最小的是最小相位系统。\par
+
+\noindent\(\bullet\) 如果相位谱多了纯延时项 \(-\omega t_0\)，或多了全通因子的额外相位滞后，通常不是最小相位。\par
+
+
+
+\subsection*{5. 全通系统与无失真传输}
+
+
+
+\textbf{错法：} 把全通系统直接当成无失真系统。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 全通系统：\(|H(j\omega)|\) 或 \(|H(e^{j\omega})|\) 为常数，只保证幅度不变。\par
+
+\noindent\(\bullet\) 无失真传输：必须满足\par
+
+\[
+
+  H(j\omega)=Ke^{-j\omega t_0}
+
+  \]
+
+即幅度为常数，且相位为线性函数，群延时\par
+
+\[
+
+  -\frac{d\varphi(\omega)}{d\omega}=t_0
+
+  \]
+
+为常数。\par
+
+
+
+\textbf{考场提醒：} 全通不一定无失真；无失真一定要求相位线性。\par
+
+
+
+\section*{三、拉普拉斯变换易错点}
+
+
+
+\subsection*{1. 初值定理}
+
+
+
+\textbf{错法：} 直接写 \(x(0^+)=\lim_{s\to\infty}sX(s)\)。\par
+
+
+
+\textbf{正确：} 先确认信号和变换满足初值定理条件。若有冲激、跳变、未定义初值，要特别小心。\par
+
+
+
+\subsection*{2. 终值定理}
+
+
+
+\textbf{错法：} 直接写\par
+
+\[
+
+x(\infty)=\lim_{s\to0}sX(s).
+
+\]
+
+
+
+\textbf{正确：} 必须先检查 \(sX(s)\) 的极点：\par
+
+
+
+\noindent\(\bullet\) 连续系统：\(sX(s)\) 的极点必须都在左半平面，最多允许原点单极点对应常值终值。\par
+
+\noindent\(\bullet\) 若存在右半平面极点或虚轴非零极点，终值不存在，不能套公式。\par
+
+
+
+\subsection*{3. 时移因子}
+
+
+
+\textbf{错法：} 看到 \(e^{-sT}F(s)\) 只写 \(f(t-T)\)。\par
+
+
+
+\textbf{正确：}\par
+
+\[
+
+e^{-sT}F(s)\ \Longleftrightarrow\ f(t-T)u(t-T).
+
+\]
+
+
+
+\textbf{考场提醒：} 单位阶跃 \(u(t-T)\) 不能漏。\par
+
+
+
+\subsection*{4. 微分方程求解}
+
+
+
+\textbf{错法：} 零输入、零状态混在一起。\par
+
+
+
+\textbf{正确流程：}\par
+
+
+
+\noindent\textbf{1.} 先写微分方程两边拉普拉斯变换。\par
+
+\noindent\textbf{2.} 初始条件产生零输入项。\par
+
+\noindent\textbf{3.} 输入 \(x(t)\) 产生零状态项。\par
+
+\noindent\textbf{4.} 若只问系统函数 \(H(s)\)，默认零状态，即初始条件取零。\par
+
+
+
+\section*{四、Z 变换易错点}
+
+
+
+\subsection*{1. ROC 决定序列方向}
+
+
+
+\textbf{错法：} 只做部分分式，不看 ROC。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) \(|z|>|a|\)：右边序列，通常对应 \(a^n u[n]\)。\par
+
+\noindent\(\bullet\) \(|z|<|a|\)：左边序列，通常对应 \(-a^n u[-n-1]\)。\par
+
+\noindent\(\bullet\) \(a<|z|<b\)：双边序列。\par
+
+
+
+\textbf{考场提醒：} 同一个代数式 \(X(z)\) 可以对应不同 \(x[n]\)，区别就在 ROC。\par
+
+
+
+\subsection*{2. 单边 Z 变换解差分方程}
+
+
+
+\textbf{错法：} 用双边 Z 变换处理带初始条件的差分方程。\par
+
+
+
+\textbf{正确：} 带初始条件时优先用单边 Z 变换；\(y[n-k]\) 会带出 \(y[-1],y[-2]\) 等初始项。\par
+
+
+
+\subsection*{3. Z 变换性质}
+
+
+
+高频易错公式：\par
+
+\[
+
+Z\{n x[n]\}=-z\frac{dX(z)}{dz}.
+
+\]
+
+
+
+\textbf{错法：} 符号写成正号，或者漏掉前面的 \(z\)。\par
+
+
+
+\subsection*{4. 离散系统稳定与因果}
+
+
+
+\textbf{正确记法：}\par
+
+
+
+\noindent\(\bullet\) 因果系统 ROC 在最外极点之外。\par
+
+\noindent\(\bullet\) 稳定系统 ROC 包含单位圆。\par
+
+\noindent\(\bullet\) 因果稳定系统的全部极点必须在单位圆内。\par
+
+
+
+\section*{五、傅里叶变换与傅里叶级数易错点}
+
+
+
+\subsection*{1. \(X(0)\) 与面积}
+
+
+
+\textbf{错法：} 把 \(X(0)\) 当成 \(x(0)\)。\par
+
+
+
+\textbf{正确：}\par
+
+\[
+
+X(0)=\int_{-\infty}^{\infty}x(t)\,dt.
+
+\]
+
+\[
+
+x(0)=\frac{1}{2\pi}\int_{-\infty}^{\infty}X(\omega)\,d\omega.
+
+\]
+
+
+
+\subsection*{2. 实信号频谱对称性}
+
+
+
+若 \(x(t)\) 为实信号：\par
+
+
+
+\noindent\(\bullet\) \(X(-\omega)=X^*(\omega)\)。\par
+
+\noindent\(\bullet\) \(\operatorname{Re}X(\omega)\) 为偶函数。\par
+
+\noindent\(\bullet\) \(\operatorname{Im}X(\omega)\) 为奇函数。\par
+
+\noindent\(\bullet\) \(|X(\omega)|\) 为偶函数。\par
+
+\noindent\(\bullet\) \(\angle X(\omega)\) 为奇函数，需注意相位跳变。\par
+
+
+
+\subsection*{3. 频移与调制}
+
+
+
+\textbf{错法：} \(x(t)\cos\omega_c t\) 只搬到 \(+\omega_c\)。\par
+
+
+
+\textbf{正确：}\par
+
+\[
+
+x(t)\cos\omega_c t
+
+\Longleftrightarrow
+
+\frac12\left[X(\omega-\omega_c)+X(\omega+\omega_c)\right].
+
+\]
+
+
+
+\textbf{考场提醒：} 系数 \(\frac12\) 很容易漏。\par
+
+
+
+\subsection*{4. 周期信号的傅里叶变换}
+
+
+
+\textbf{错法：} 把周期信号频谱画成连续曲线。\par
+
+
+
+\textbf{正确：} 周期信号的傅里叶变换是冲激谱：\par
+
+\[
+
+x_T(t)=\sum_{k=-\infty}^{\infty}c_k e^{jk\omega_0t}
+
+\Longleftrightarrow
+
+2\pi\sum_{k=-\infty}^{\infty}c_k\delta(\omega-k\omega_0).
+
+\]
+
+
+
+\subsection*{5. 时频有限}
+
+
+
+\textbf{错法：} 认为一个非零信号可以同时严格时限和严格带限。\par
+
+
+
+\textbf{正确：} 非零信号不能同时严格时限且严格带限。这是判断题常见陷阱。\par
+
+
+
+\section*{六、卷积易错点}
+
+
+
+\subsection*{1. 连续卷积}
+
+
+
+\textbf{错法：} 只套公式，不判断重叠区间。\par
+
+
+
+\textbf{正确流程：}\par
+
+
+
+\noindent\textbf{1.} 反褶：\(h(\tau)\to h(t-\tau)\)。\par
+
+\noindent\textbf{2.} 平移。\par
+
+\noindent\textbf{3.} 找重叠区间。\par
+
+\noindent\textbf{4.} 在重叠区间积分。\par
+
+\noindent\textbf{5.} 按 \(t\) 的临界点分段。\par
+
+
+
+\textbf{考场提醒：} 图解卷积真正考的是分段上下限。\par
+
+
+
+\subsection*{2. 冲激卷积}
+
+
+
+高频公式：\par
+
+\[
+
+x(t)*\delta(t-t_0)=x(t-t_0).
+
+\]
+
+
+
+\textbf{错法：} 移位方向写反。\par
+
+
+
+\subsection*{3. 有限长离散线卷积}
+
+
+
+若 \(x[n]\) 长度为 \(L_x\)，\(h[n]\) 长度为 \(L_h\)，线卷积长度为\par
+
+\[
+
+L_y=L_x+L_h-1.
+
+\]
+
+
+
+\subsection*{4. 圆卷积}
+
+
+
+\textbf{错法：} 圆卷积直接截断线卷积。\par
+
+
+
+\textbf{正确：} \(N\) 点圆卷积等于线卷积按 \(N\) 周期折叠相加。若\par
+
+\[
+
+N\ge L_x+L_h-1,
+
+\]
+
+则圆卷积与线卷积不混叠。\par
+
+
+
+\section*{七、采样、DFT、FFT 易错点}
+
+
+
+\subsection*{1. 采样频率与频率分辨率}
+
+
+
+\textbf{错法：} 把采样率 \(f_s\) 和频率分辨率 \(\Delta f\) 混为一谈。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 采样率 \(f_s\)：决定最高可分析频率，防混叠要求 \(f_s>2f_m\)。\par
+
+\noindent\(\bullet\) 采样总时长 \(T\)：决定真实频率分辨率。\par
+
+\noindent\(\bullet\) DFT 频率间隔：\par
+
+\[
+
+  \Delta f=\frac{f_s}{N}=\frac{1}{T}.
+
+  \]
+
+
+
+\subsection*{2. 补零}
+
+
+
+\textbf{错法：} 补零能提高真实分辨率。\par
+
+
+
+\textbf{正确：} 补零只让频谱采样点更密，相当于插值显示；真实分辨率仍由采样总时长决定。\par
+
+
+
+\subsection*{3. 频率泄露}
+
+
+
+\textbf{错法：} 认为 FFT 出现旁瓣就是算法错。\par
+
+
+
+\textbf{正确：} 非整周期截断会产生频率泄露；加窗能降低旁瓣，但会加宽主瓣。\par
+
+
+
+\subsection*{4. 栅栏效应}
+
+
+
+\textbf{错法：} 认为真实频率一定落在 DFT 栅格点上。\par
+
+
+
+\textbf{正确：} DFT 只在 \(k\Delta f\) 处取样；真实频率不落在栅格点时会出现幅值估计误差。\par
+
+
+
+\subsection*{5. FFT}
+
+
+
+\textbf{错法：} 把 FFT 当成新变换。\par
+
+
+
+\textbf{正确：} FFT 只是快速计算 DFT 的算法，不改变 DFT 的定义和频率含义。\par
+
+
+
+\section*{八、采样恢复与保持器易错点}
+
+
+
+\subsection*{1. 理想采样频谱}
+
+
+
+理想冲激采样：\par
+
+\[
+
+x_s(t)=x(t)\sum_{n=-\infty}^{\infty}\delta(t-nT_s).
+
+\]
+
+频域：\par
+
+\[
+
+X_s(\omega)=\frac{1}{T_s}\sum_{k=-\infty}^{\infty}X(\omega-k\omega_s).
+
+\]
+
+
+
+\textbf{错法：} 漏掉前面的 \(\frac{1}{T_s}\)。\par
+
+
+
+\subsection*{2. 防混叠条件}
+
+
+
+若 \(X(\omega)\) 带限于 \(|\omega|\le \omega_m\)，则\par
+
+\[
+
+\omega_s>2\omega_m.
+
+\]
+
+
+
+\subsection*{3. 保持器}
+
+
+
+\textbf{错法：} 认为零阶保持后频谱只是理想低通恢复。\par
+
+
+
+\textbf{正确：} 保持器有自己的频率响应，会引入幅频滚降和相位延迟；题目问“保持恢复”时要把保持器频响写进去。\par
+
+
+
+\section*{九、调制与解调易错点}
+
+
+
+\subsection*{1. 普通 AM 与抑制载波 AM-SC}
+
+
+
+\textbf{错法：} 所有调幅信号都可以包络检波。\par
+
+
+
+\textbf{正确：}\par
+
+
+
+\noindent\(\bullet\) 普通 AM 且载波足够强时可包络检波。\par
+
+\noindent\(\bullet\) AM-SC 没有载波分量，通常要同步解调。\par
+
+\noindent\(\bullet\) SSB 通常也要相干/同步解调。\par
+
+
+
+\subsection*{2. 单边带 SSB}
+
+
+
+移相法常见结构：\par
+
+\[
+
+y(t)=x(t)\cos\omega_ct\pm x_h(t)\sin\omega_ct.
+
+\]
+
+
+
+在常用 Hilbert 约定\par
+
+\[
+
+H(j\omega)=
+
+\begin{cases}
+
+-j,&\omega>0,\\
+
+j,&\omega<0,
+
+\end{cases}
+
+\]
+
+下，符号决定保留上边带还是下边带。不要只背结论，要看题目综合器极性。\par
+
+
+
+\subsection*{3. 频谱搬移}
+
+
+
+\textbf{错法：} 调制后忘记负频率也要对称搬移。\par
+
+
+
+\textbf{正确：} 实信号的频谱必须满足共轭对称；画图时正负频率都要画。\par
+
+
+
+\section*{十、匹配滤波器易错点}
+
+
+
+\subsection*{1. 作用}
+
+
+
+\textbf{错法：} 只写“滤波”。\par
+
+
+
+\textbf{正确：} 匹配滤波器用于在白噪声背景下，使某个采样时刻的输出信噪比最大。\par
+
+
+
+\subsection*{2. 冲激响应}
+
+
+
+若已知发送信号 \(s(t)\)，匹配滤波器常写为\par
+
+\[
+
+h(t)=Cs^*(T-t).
+
+\]
+
+实信号时可写为\par
+
+\[
+
+h(t)=Cs(T-t).
+
+\]
+
+
+
+\subsection*{3. 检测效果}
+
+
+
+\textbf{得分点：}\par
+
+
+
+\noindent\(\bullet\) 输出峰值出现在匹配时刻。\par
+
+\noindent\(\bullet\) 输出与自相关有关。\par
+
+\noindent\(\bullet\) 自相关越尖锐，延迟检测越精确。\par
+
+
+
+\section*{十一、FIR/IIR 与滤波器易错点}
+
+
+
+\subsection*{1. FIR 线性相位}
+
+
+
+\textbf{错法：} 认为所有 FIR 都线性相位。\par
+
+
+
+\textbf{正确：} 有限长实序列 \(h[n]\) 满足偶对称或奇对称时，才具有线性相位：\par
+
+\[
+
+h[n]=h[N-1-n]
+
+\]
+
+或\par
+
+\[
+
+h[n]=-h[N-1-n].
+
+\]
+
+
+
+\subsection*{2. FIR 类型限制}
+
+
+
+\textbf{错法：} 只记偶/奇对称，不记在 \(\omega=0,\pi\) 的零点限制。\par
+
+
+
+\textbf{正确：} FIR 四类线性相位滤波器对低通、高通、带通、带阻的可实现类型有约束；遇到选择题要先看 \(N\) 奇偶和 \(h[n]\) 对称性。\par
+
+
+
+\subsection*{3. IIR 与 FIR 判断}
+
+
+
+系统函数\par
+
+\[
+
+H(z)=\frac{\sum_{r=0}^{M}b_rz^{-r}}{1+\sum_{k=1}^{N}a_kz^{-k}}.
+
+\]
+
+
+
+\noindent\(\bullet\) 若存在 \(a_k\ne 0\)，通常为 IIR。\par
+
+\noindent\(\bullet\) 若所有 \(a_k=0\)，为 FIR。\par
+
+
+
+\subsection*{4. 冲激响应不变法与双线性变换法}
+
+
+
+\textbf{冲激响应不变法：}\par
+
+
+
+\noindent\(\bullet\) 优点：时域冲激响应对应直观。\par
+
+\noindent\(\bullet\) 易错：高频会混叠，适合低通/带通场景。\par
+
+
+
+\textbf{双线性变换法：}\par
+
+
+
+\[
+
+s=\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}.
+
+\]
+
+
+
+\noindent\(\bullet\) 优点：\(s\) 平面到 \(z\) 平面单值映射，不产生频谱混叠。\par
+
+\noindent\(\bullet\) 易错：频率非线性畸变，需要预畸变校正。\par
+
+
+
+\section*{十二、简答题答题模板}
+
+
+
+\subsection*{1. DFT/FFT 频谱分析方案}
+
+
+
+按四步写：\par
+
+
+
+\noindent\textbf{1.} 采样率 \(f_s\)：由最高频率决定，避免混叠。\par
+
+\noindent\textbf{2.} 采样时长 \(T\)：由频率分辨率决定，\(\Delta f=1/T\)。\par
+
+\noindent\textbf{3.} 点数 \(N=f_sT\)：FFT 常取 2 的整数次幂。\par
+
+\noindent\textbf{4.} 误差与补救：混叠、泄露、栅栏效应；抗混叠滤波、加窗、延长采样、适当补零。\par
+
+
+
+\subsection*{2. 频率泄露}
+
+
+
+必须写到：\par
+
+
+
+\noindent\(\bullet\) 原因：有限长截断，相当于乘窗。\par
+
+\noindent\(\bullet\) 频域结果：真实频谱与窗函数频谱卷积。\par
+
+\noindent\(\bullet\) 表现：旁瓣、能量扩散。\par
+
+\noindent\(\bullet\) 措施：整周期采样、加窗、延长采样时间。\par
+
+
+
+\subsection*{3. 系统性质由 \(h(t)\) 判断}
+
+
+
+按顺序写：\par
+
+
+
+\noindent\textbf{1.} 记忆性：是否只含 \(\delta(t)\) 或 \(\delta[n]\) 形式。\par
+
+\noindent\textbf{2.} 因果性：\(h(t<0)=0\) 或 \(h[n<0]=0\)。\par
+
+\noindent\textbf{3.} 稳定性：\(\int |h(t)|dt<\infty\) 或 \(\sum |h[n]|<\infty\)。\par
+
+\noindent\textbf{4.} 可逆性：频域是否有零点，逆系统是否满足要求。\par
+
+
+
+\section*{十三、考前最后检查清单}
+
+
+
+\noindent\(\bullet\) 看到 ROC，先判稳定/因果，再做反变换。\par
+
+\noindent\(\bullet\) 看到终值，先查极点条件。\par
+
+\noindent\(\bullet\) 看到 \(e^{-sT}\)，答案必须有 \(u(t-T)\)。\par
+
+\noindent\(\bullet\) 看到 \(Z\{nx[n]\}\)，公式是 \(-z\,dX(z)/dz\)。\par
+
+\noindent\(\bullet\) 看到 DFT 补零，不能写“提高真实分辨率”。\par
+
+\noindent\(\bullet\) 看到 FFT，写“快速算法”，不是新变换。\par
+
+\noindent\(\bullet\) 看到圆卷积，先问 \(N\) 是否足够，不够就折叠。\par
+
+\noindent\(\bullet\) 看到全通，不能直接说无失真。\par
+
+\noindent\(\bullet\) 看到最小相位，要检查零点位置，不只看极点。\par
+
+\noindent\(\bullet\) 看到幅频 + 相频判断最小相位，要找是否有额外相位滞后/纯延时。\par
+
+\noindent\(\bullet\) 看到调幅，先分普通 AM、AM-SC、SSB，再决定能否包络检波。\par
+
+\noindent\(\bullet\) 看到采样恢复，必须写防混叠条件和低通截止范围。\par
+
+\noindent\(\bullet\) 看到保持器，考虑保持器频响影响。\par
+
+\noindent\(\bullet\) 看到匹配滤波，写“白噪声下采样时刻 SNR 最大”和“共轭反褶延时”。\par
+
+\noindent\(\bullet\) 看到 FIR 线性相位，先看 \(h[n]\) 对称性和 \(N\) 奇偶。\par
+
+
+
+\section*{十四、考前优先级}
+
+
+
+\textbf{第一优先级：} ROC、系统性质、拉普拉斯/Z 反变换、卷积、采样恢复。\par
+
+
+
+\textbf{第二优先级：} DFT/FFT 工程参数、频率泄露、匹配滤波、调制解调。\par
+
+
+
+\textbf{第三优先级：} FIR/IIR、滤波器结构、佩里-维纳准则、Hilbert 变换关系。\par
+
+
+
+\textbf{考前半天只看：} 本文“一、最高频易错总表”和“十三、考前最后检查清单”。\par
+
+\end{document}
+

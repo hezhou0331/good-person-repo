@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>s 平面圆环 → z 平面图形怎么判断</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#ffffff; --ink:#1f2430; --muted:#5b6172;
+    --line:#e3e6ef; --accent:#2d6cdf; --good:#1a9e6a; --bad:#d8503a;
+    --teal:#5b8fa3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:26px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin:18px 0;box-shadow:0 1px 3px rgba(20,30,60,.04)}
+  h2{font-size:19px;margin:0 0 10px;display:flex;align-items:center;gap:9px}
+  h2 .n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:var(--accent);
+    color:#fff;font-size:14px;align-items:center;justify-content:center;flex:0 0 auto}
+  .tldr{background:linear-gradient(180deg,#eef4ff,#ffffff);border-color:#cfe0ff}
+  .key{background:#fff7e6;border:1px solid #ffe2a8;border-radius:10px;padding:12px 14px;margin:12px 0}
+  .formula{background:#0f1830;color:#eaf0ff;border-radius:10px;padding:14px 16px;
+    overflow-x:auto;font-size:15px}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15px}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:center}
+  th{background:#f0f3fa}
+  .good{color:var(--good);font-weight:700}
+  .bad{color:var(--bad);font-weight:700}
+  code{background:#eef1f7;padding:1px 6px;border-radius:5px;font-size:.92em}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:6px 0 14px}
+  .ctl{background:#f3f6fc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .ctl label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+  .ctl b{color:var(--ink)}
+  input[type=range]{width:100%}
+  canvas{width:100%;max-width:920px;background:#fff;border:1px solid var(--line);border-radius:12px;display:block}
+  canvas.mini{max-width:220px;height:auto;aspect-ratio:220/200;margin:0 auto;border-color:#eef0f6}
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .vbox{border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
+  .vbox h4{margin:0 0 6px;font-size:15px}
+  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-size:13px;font-weight:700}
+  .pill.y{background:#fde8e3;color:var(--bad)}
+  .pill.n{background:#e3f6ec;color:var(--good)}
+  ul{margin:8px 0 0;padding-left:22px}
+  li{margin:5px 0}
+  .step{counter-reset:s;list-style:none;padding-left:0}
+  .step li{position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line)}
+  .step li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:8px;
+    width:26px;height:26px;background:var(--teal);color:#fff;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:13px}
+  .small{color:var(--muted);font-size:13px}
+  .hl{background:#fff2b8;padding:0 3px;border-radius:3px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.twocol,.verdict{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>s 平面圆环 → z 平面图形 · 判断方法</h1>
+  <p class="sub">信号与系统 · 拉普拉斯变换与 z 变换的复平面映射 · 自己拖滑块就能看懂</p>
+
+  <!-- 0. TL;DR -->
+  <div class="card tldr">
+    <h2><span class="n">★</span>一句话结论</h2>
+    <p>s 平面与 z 平面通过 <b>$z=e^{sT}$</b> 联系。一个<b>以原点为圆心、半径 $r$</b> 的圆,
+       映射到 z 平面后, <span class="hl">辐角 $\arg z$ 的总跨度 = $2rT$</span>。</p>
+    <div class="key">
+      <b>判据(背这一条就够):</b><br>
+      &nbsp;&nbsp;• 角跨度 $2rT > 2\pi$ &nbsp;(即 <b>$rT>\pi\approx3.14$</b>) → 这条边界曲线<b class="bad">绕过一整圈,自交,有交叉点</b><br>
+      &nbsp;&nbsp;• 角跨度 $2rT < 2\pi$ &nbsp;(即 $rT<\pi$) → <b class="good">不到一圈,无交叉点</b>
+    </div>
+    <p style="margin-bottom:0">本题 $T=1$:外圆 $r=4\Rightarrow 2r=8>2\pi$(有交叉);内圆 $r=2\Rightarrow 2r=4<2\pi$(无交叉)。
+       <b>外边界交叉、内边界不交叉 → 选 A。</b></p>
+    <p class="small" style="margin-top:8px">⚠️ 标准答案里写的"半径超过 $2\pi$"是<b>口误</b>。$r=4$ 并没超过 $2\pi\approx6.28$。
+       真正的门槛是 <b>半径 $>\pi$</b>(等价说法:直径 $2r>2\pi$,或角跨度 $2r$ 超过一整圈 $2\pi$)。$2<\pi<4$,所以内不交叉、外交叉,逻辑完全成立。</p>
+  </div>
+
+  <!-- 1. 为什么 -->
+  <div class="card">
+    <h2><span class="n">1</span>映射从哪来:$z=e^{sT}$</h2>
+    <p>对连续信号采样得到离散信号时,拉氏变换的 $s$ 与 z 变换的 $z$ 满足:</p>
+    <div class="formula">$$z=e^{sT},\qquad s=\sigma+j\omega$$
+    $$\Rightarrow\quad z=e^{\sigma T}\cdot e^{j\omega T}$$</div>
+    <p>所以一个复数 $s$ 映射到 z 平面时,<b>模长</b>和<b>辐角</b>分别是:</p>
+    <div class="formula">$$\boxed{\;|z|=e^{\sigma T}\;}\qquad\boxed{\;\arg z=\omega T\;}$$</div>
+    <ul>
+      <li><b>实部 $\sigma$ 决定 z 的"远近"</b>:$\sigma$ 越大 → $|z|$ 越大(往外);$\sigma<0$ → $|z|<1$(单位圆内)。</li>
+      <li><b>虚部 $\omega$ 决定 z 的"角度"</b>:$\omega$ 每增加 $2\pi/T$,z 就转满一圈回到原处。</li>
+    </ul>
+    <p class="small">关键:角度只看虚部 $\omega$,而虚部 $\omega$ 可以无限大、却被"卷"进 $[-\pi,\pi]$ 反复绕圈 —— 这就是产生交叉点的根源。</p>
+  </div>
+
+  <!-- 2. 圆为什么变成豆 -->
+  <div class="card">
+    <h2><span class="n">2</span>为什么圆会变成"豆子/螺旋"形</h2>
+    <p>取 s 平面上以原点为圆心、半径 $r$ 的圆,参数化为 $s(\theta)=r\cos\theta+j\,r\sin\theta$,于是</p>
+    <div class="formula">$$\sigma=r\cos\theta,\qquad \omega=r\sin\theta$$
+    $$|z|=e^{\,r\cos\theta\,T},\qquad \arg z=r\sin\theta\,T$$</div>
+    <div class="twocol">
+      <div>
+        <p>沿圆走一圈 $\theta:0\to2\pi$:</p>
+        <ul>
+          <li>$\theta=0$:$\sigma=r$ 最大 → $|z|$ 最大(最右、最外)</li>
+          <li>$\theta=\pi$:$\sigma=-r$ 最小 → $|z|$ 最小(最靠近原点)</li>
+          <li>$\theta=\tfrac\pi2$:$\arg z=rT$;$\theta=-\tfrac\pi2$:$\arg z=-rT$</li>
+        </ul>
+      </div>
+      <div>
+        <p>所以 z 平面里:</p>
+        <ul>
+          <li>模长在 $e^{-rT}\sim e^{rT}$ 之间变化 → "外凸内凹"的<b>豆形</b></li>
+          <li>辐角在 $-rT\sim+rT$ 之间扫,<b>总跨度 $2rT$</b></li>
+          <li>若 $2rT>2\pi$,辐角扫过的范围超过一整圈,曲线<b>头尾叠到一起 → 交叉</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 判据推导 -->
+  <div class="card">
+    <h2><span class="n">3</span>交叉点判据(为什么是 $r>\pi$)</h2>
+    <p>曲线自交 = 存在两个不同的 $\theta_1\neq\theta_2$ 映射到<b>同一个 z</b>,即模长相等且辐角相差 $2\pi$ 整数倍:</p>
+    <div class="formula">$$|z|\text{相等}\Rightarrow\cos\theta_1=\cos\theta_2\Rightarrow\theta_2=-\theta_1$$
+    $$\arg\text{相等(mod }2\pi)\Rightarrow rT\sin\theta_1-(-rT\sin\theta_1)=2\pi k$$
+    $$\Rightarrow\;2rT\sin\theta_1=2\pi k\;\Rightarrow\;rT\sin\theta_1=\pi k$$</div>
+    <p>因为 $|\sin\theta_1|\le1$,要有非零解($k=\pm1$)必须 <b class="hl">$rT\ge\pi$</b>。</p>
+    <div class="key">
+      <b>判据(通用):</b> 半径 $r$ 的同心圆映射后,该圆 <b>有交叉点 $\iff rT>\pi$</b>(等价 $2rT>2\pi$)。<br>
+      <b>注意:</b>圆心是否在原点<b>不影响</b>交叉判断(平移圆心只改变 $\sigma$ 即模长,不改变辐角跨度 $2rT$)。交叉只由<b>半径 × 采样间隔</b>决定。
+    </div>
+  </div>
+
+  <!-- 4. 交互 -->
+  <div class="card">
+    <h2><span class="n">4</span>交互演示 · 自己拖一拖</h2>
+    <p class="small">左:s 平面圆环(蓝绿色)。右:映射到 z 平面后的两条边界曲线 + 单位圆(虚线)。
+       拖滑块改变内/外半径和 $T$,观察辐角跨度何时超过一整圈、何时出现红色交叉点。
+       <b>右图径向做了压缩显示(示意),角度是精确的。</b></p>
+
+    <div class="controls">
+      <div class="ctl"><label>内圆半径 $r_1$ <b id="vr1">2.0</b></label>
+        <input id="r1" type="range" min="0.3" max="6" step="0.1" value="2"></div>
+      <div class="ctl"><label>外圆半径 $r_2$ <b id="vr2">4.0</b></label>
+        <input id="r2" type="range" min="0.5" max="8" step="0.1" value="4"></div>
+      <div class="ctl"><label>采样间隔 $T$ <b id="vT">1.00</b></label>
+        <input id="T" type="range" min="0.3" max="2.5" step="0.05" value="1"></div>
+    </div>
+
+    <canvas id="cv" width="920" height="470"></canvas>
+
+    <div class="verdict">
+      <div class="vbox" id="vbInner"><h4>内边界 (r₁)</h4></div>
+      <div class="vbox" id="vbOuter"><h4>外边界 (r₂)</h4></div>
+    </div>
+    <p class="small" id="match" style="margin-top:10px"></p>
+  </div>
+
+  <!-- 4.5 四种图形对照 -->
+  <div class="card">
+    <h2><span class="n">▦</span>四种图形长什么样(挖洞对照)</h2>
+    <p class="small">下面四张都是 z 平面映射结果,<b>中间的洞是真挖空的</b>(even-odd 填充)。红点 = 交叉点。
+       关键就看两件事:<b>外边界有没有缺口</b>、<b>内边界有没有缺口</b>。</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:8px">
+      <div class="vbox" style="text-align:center">
+        <canvas class="mini" data-r1="2" data-r2="4" data-t="1" width="220" height="200"></canvas>
+        <h4 style="margin:8px 0 2px">✅ A 型(本题答案)</h4>
+        <div class="small">$r_1{=}2,\;r_2{=}4$<br>外 $2r{=}8{>}2\pi$ <b class="bad">缺口</b><br>内 $2r{=}4{<}2\pi$ <b class="good">光滑</b></div>
+      </div>
+      <div class="vbox" style="text-align:center">
+        <canvas class="mini" data-r1="1.5" data-r2="2.8" data-t="1" width="220" height="200"></canvas>
+        <h4 style="margin:8px 0 2px">B 型(都没缺口)</h4>
+        <div class="small">$r_1{=}1.5,\;r_2{=}2.8$<br>两个半径都 $<\pi$<br>内外都<b class="good">光滑</b>的豆形圆环</div>
+      </div>
+      <div class="vbox" style="text-align:center">
+        <canvas class="mini" data-r1="3.6" data-r2="5" data-t="1" width="220" height="200"></canvas>
+        <h4 style="margin:8px 0 2px">C 型(内也缺口)</h4>
+        <div class="small">$r_1{=}3.6,\;r_2{=}5$<br>两个半径都 $>\pi$<br>内外<b class="bad">都有缺口</b></div>
+      </div>
+      <div class="vbox" style="text-align:center;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:46px;color:var(--bad);line-height:1">✕</div>
+        <h4 style="margin:8px 0 2px">D 型(内缺口、外光滑)</h4>
+        <div class="small"><b>物理上不可能</b>:外半径必大于内半径,内边界若超过 π,外边界必然也超过。所以"只有内缺口"画不出来。</div>
+      </div>
+    </div>
+    <p class="key" style="margin-top:14px"><b>怎么对上本题:</b>给定圆环 $r_1{=}2,r_2{=}4$,真实映射<b>只能是 A 型</b>
+      (外缺口 + 内光滑)。B/C/D 都是把缺口画错位置的干扰项。看一眼"外有缺口、内光滑",直接锁 A。</p>
+  </div>
+
+  <!-- 5. 条件变了怎么办 -->
+  <div class="card">
+    <h2><span class="n">5</span>条件变了,照样会做(变体题)</h2>
+    <table>
+      <tr><th>题目怎么改</th><th>对判据的影响</th><th>怎么判断</th></tr>
+      <tr><td>给的是 $T\ne1$(或 $z=e^{sT_s}$)</td>
+          <td>门槛变成 $r>\pi/T$</td>
+          <td>比较 $2rT$ 与 $2\pi$:大于则交叉</td></tr>
+      <tr><td>圆环半径换成别的数(如 2、8)</td>
+          <td>逐个圆比 $rT$ 与 $\pi$</td>
+          <td>内 2&lt;π 不交叉;外 8&gt;π 交叉(且绕更多圈)</td></tr>
+      <tr><td>$r$ 比 $2\pi/T$ 还大</td>
+          <td>角跨度超过 <b>两整圈</b></td>
+          <td>会出现<b>多个</b>交叉点(绕几圈数几次)</td></tr>
+      <tr><td>圆心不在原点(平移到 $\sigma=c$)</td>
+          <td>只改 $|z|$ 大小,不改交叉</td>
+          <td>交叉与否仍只看 $rT$ vs $\pi$</td></tr>
+      <tr><td>区域是<b>竖直带</b> $\sigma_1<\sigma<\sigma_2$</td>
+          <td>映射成<b>同心圆环</b> $e^{\sigma_1 T}<|z|<e^{\sigma_2 T}$</td>
+          <td>$\sigma=0\to$单位圆;左半平面$\to$圆内</td></tr>
+      <tr><td>区域是<b>水平带</b> $\omega_1<\omega<\omega_2$</td>
+          <td>映射成<b>扇形</b>(角度 $\omega_1 T\sim\omega_2 T$)</td>
+          <td>角宽 $(\omega_2-\omega_1)T$ 超 $2\pi$ 则铺满全平面</td></tr>
+    </table>
+    <p class="key" style="margin-top:14px"><b>万能口诀:</b>
+      <b>实部管模长</b>($|z|=e^{\sigma T}$,左半平面→单位圆内,虚轴→单位圆,右半平面→圆外);
+      <b>虚部管角度</b>($\arg z=\omega T$,角度跨度比 $2\pi$,超了就绕圈/交叉/铺满)。</p>
+  </div>
+
+  <!-- 6. 解题模板 -->
+  <div class="card">
+    <h2><span class="n">6</span>考试解题模板</h2>
+    <ol class="step">
+      <li>写出映射 $|z|=e^{\sigma T}$、$\arg z=\omega T$(没给 $T$ 就当 $T=1$)。</li>
+      <li>对每条边界圆,取半径 $r$,算<b>辐角跨度 $2rT$</b>。</li>
+      <li>和 $2\pi$ 比:$2rT>2\pi$(即 $r>\pi/T$)→ <b class="bad">该边界有交叉点</b>;否则<b class="good">无</b>。</li>
+      <li>对照选项:看哪条边界(内/外)有交叉、哪条没有,匹配图形。</li>
+      <li>(若 $2rT>4\pi$)数一数绕了几圈 → 交叉点个数。</li>
+    </ol>
+    <p class="small" style="margin-top:12px">本题套模板:外 $2\cdot4=8>2\pi$ ✔交叉,内 $2\cdot2=4<2\pi$ ✔不交叉 ⟹ <b>A</b>。</p>
+  </div>
+
+</div>
+
+<script>
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const R1=document.getElementById('r1'),R2=document.getElementById('r2'),T=document.getElementById('T');
+const TWO_PI=Math.PI*2;
+
+function fmt(x){return (Math.round(x*100)/100).toFixed(x<10?1:0);}
+
+function draw(){
+  const r1=+R1.value, r2=+R2.value, t=+T.value;
+  document.getElementById('vr1').textContent=(+R1.value).toFixed(1);
+  document.getElementById('vr2').textContent=(+R2.value).toFixed(1);
+  document.getElementById('vT').textContent=(+T.value).toFixed(2);
+
+  ctx.clearRect(0,0,cv.width,cv.height);
+
+  // ---------- 左:s 平面 ----------
+  const cx=215, cy=235, sc=24;
+  // 网格轴
+  ctx.strokeStyle='#cfd6e6'; ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(40,cy);ctx.lineTo(400,cy);ctx.moveTo(cx,40);ctx.lineTo(cx,430);ctx.stroke();
+  ctx.fillStyle='#5b6172';ctx.font='13px Segoe UI';
+  ctx.fillText('Re',392,cy+18);ctx.fillText('Im',cx+8,52);ctx.fillText('O',cx-14,cy+16);
+  // 刻度
+  for(let k=1;k<=8;k++){let x=cx+k*sc;if(x<398){ctx.beginPath();ctx.moveTo(x,cy-3);ctx.lineTo(x,cy+3);ctx.stroke();
+    if(k%2===0)ctx.fillText(k,x-3,cy+18);}}
+  // 圆环(even-odd 挖洞)
+  ctx.beginPath();
+  ctx.arc(cx,cy,r2*sc,0,TWO_PI);
+  ctx.arc(cx,cy,r1*sc,0,TWO_PI,true);
+  ctx.fillStyle='rgba(91,143,163,.55)';ctx.fill('evenodd');
+  ctx.strokeStyle='#3f7587';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(cx,cy,r2*sc,0,TWO_PI);ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,r1*sc,0,TWO_PI);ctx.stroke();
+  ctx.fillStyle='#1f2430';ctx.font='600 14px Segoe UI';ctx.fillText('s 平面',60,70);
+
+  // 分隔线
+  ctx.strokeStyle='#d0d5e2';ctx.setLineDash([6,6]);
+  ctx.beginPath();ctx.moveTo(460,40);ctx.lineTo(460,430);ctx.stroke();ctx.setLineDash([]);
+
+  // ---------- 右:z 平面 ----------
+  const zx=690, zy=235;
+  // 径向压缩:radius_draw = K*exp(gamma*sigma*T)
+  const gamma=0.45;
+  const sigmaMax=r2; // 圆心在原点,sigma_max = r2
+  const K=160/Math.exp(gamma*sigmaMax*t); // 让最外点≈160px
+  const rad=(sigma)=>K*Math.exp(gamma*sigma*t);
+
+  // 轴
+  ctx.strokeStyle='#cfd6e6';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(500,zy);ctx.lineTo(880,zy);ctx.moveTo(zx,55);ctx.lineTo(zx,420);ctx.stroke();
+  ctx.fillStyle='#5b6172';ctx.font='13px Segoe UI';ctx.fillText('Re',872,zy+18);ctx.fillText('Im',zx+8,68);
+  // 单位圆 |z|=1 → sigma=0
+  ctx.strokeStyle='#b9c2d6';ctx.setLineDash([5,5]);
+  ctx.beginPath();ctx.arc(zx,zy,rad(0),0,TWO_PI);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#8a93a8';ctx.font='11px Segoe UI';ctx.fillText('|z|=1',zx+rad(0)+3,zy-4);
+  ctx.fillStyle='#1f2430';ctx.font='600 14px Segoe UI';ctx.fillText('z 平面',505,70);
+
+  // 把一条映射曲线加进 Path2D(用于 even-odd 挖洞)
+  function addCurve(path,r){
+    const N=700;
+    for(let i=0;i<=N;i++){
+      const th=i/N*TWO_PI;
+      const sigma=r*Math.cos(th), w=r*Math.sin(th);
+      const ang=w*t, R=rad(sigma);
+      const x=zx+R*Math.cos(ang), y=zy-R*Math.sin(ang);
+      i===0?path.moveTo(x,y):path.lineTo(x,y);
+    }
+    path.closePath();
+  }
+  // even-odd 填充:外曲线 + 内曲线 → 中间真正被挖空
+  const region=new Path2D();
+  addCurve(region,r2);
+  addCurve(region,r1);
+  ctx.fillStyle='rgba(91,143,163,.45)';
+  ctx.fill(region,'evenodd');
+  // 两条边界各自描边
+  const pOut=new Path2D();addCurve(pOut,r2);
+  const pIn=new Path2D();addCurve(pIn,r1);
+  ctx.strokeStyle='#3f7587';ctx.lineWidth=2;ctx.stroke(pOut);
+  ctx.strokeStyle='#2d6cdf';ctx.lineWidth=2;ctx.stroke(pIn);
+
+  // 标交叉点(若 rT>pi):在 arg=±pi 处
+  function mark(r,col){
+    if(r*t<=Math.PI) return;
+    const s=Math.PI/(r*t); // sin(theta)=pi/(rt)
+    const cosp=Math.sqrt(Math.max(0,1-s*s));
+    [cosp,-cosp].forEach(cv2=>{
+      const sigma=r*cv2, R=rad(sigma);
+      const x=zx+R*Math.cos(Math.PI), y=zy-R*Math.sin(Math.PI);
+      ctx.beginPath();ctx.arc(x,y,5,0,TWO_PI);
+      ctx.fillStyle=col;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+    });
+  }
+  mark(r2,'#d8503a');
+  mark(r1,'#d8503a');
+
+  // ---------- 判定文字 ----------
+  function verdict(box,r,name){
+    const span=2*r*t, cross=r*t>Math.PI;
+    const loops=(span/TWO_PI);
+    box.innerHTML=`<h4>${name} (r=${r.toFixed(1)})</h4>`+
+      `辐角跨度 $2rT$ = <b>${span.toFixed(2)}</b> &nbsp; vs &nbsp; $2\\pi$=6.28<br>`+
+      `绕圈数 ≈ <b>${loops.toFixed(2)}</b> 圈<br>`+
+      (cross?`<span class="pill y">有交叉点 ✦</span>`:`<span class="pill n">无交叉点</span>`);
+    if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([box]);
+  }
+  verdict(document.getElementById('vbInner'),r1,'内边界');
+  verdict(document.getElementById('vbOuter'),r2,'外边界');
+
+  // 是否匹配本题(内不交叉、外交叉)
+  const innerCross=r1*t>Math.PI, outerCross=r2*t>Math.PI;
+  let msg='';
+  if(!innerCross&&outerCross) msg='✅ 当前:外交叉、内不交叉 —— 正是答案 A 那种图形(只有外环边缘有交叉点)。';
+  else if(innerCross&&outerCross) msg='内、外都交叉 —— 内圆半径也超过 π/T 了。';
+  else if(!innerCross&&!outerCross) msg='内、外都不交叉 —— 两个半径都没到 π/T,边界都是简单闭合曲线。';
+  else msg='内交叉、外不交叉 —— 物理上不会出现(外圆半径必大于内圆)。';
+  document.getElementById('match').textContent=msg;
+}
+
+// ===== 小多图:独立绘制一张 z 平面映射(带挖洞) =====
+function drawMini(canvas){
+  const c=canvas.getContext('2d');
+  const r1=+canvas.dataset.r1, r2=+canvas.dataset.r2, t=+canvas.dataset.t;
+  const W=canvas.width, H=canvas.height, zx=W/2, zy=H/2;
+  const gamma=0.45, fit=Math.min(W,H)*0.42;
+  const K=fit/Math.exp(gamma*r2*t);
+  const rad=s=>K*Math.exp(gamma*s*t);
+  c.clearRect(0,0,W,H);
+  // 轴 + 单位圆
+  c.strokeStyle='#dfe3ee';c.lineWidth=1;
+  c.beginPath();c.moveTo(10,zy);c.lineTo(W-10,zy);c.moveTo(zx,12);c.lineTo(zx,H-12);c.stroke();
+  c.strokeStyle='#c3ccdd';c.setLineDash([4,4]);
+  c.beginPath();c.arc(zx,zy,rad(0),0,TWO_PI);c.stroke();c.setLineDash([]);
+  // 曲线 → Path
+  function add(path,r){
+    const N=600;
+    for(let i=0;i<=N;i++){const th=i/N*TWO_PI;
+      const s=r*Math.cos(th),w=r*Math.sin(th),ang=w*t,R=rad(s);
+      const x=zx+R*Math.cos(ang),y=zy-R*Math.sin(ang);
+      i===0?path.moveTo(x,y):path.lineTo(x,y);}
+    path.closePath();
+  }
+  const reg=new Path2D();add(reg,r2);add(reg,r1);
+  c.fillStyle='rgba(91,143,163,.5)';c.fill(reg,'evenodd');
+  const po=new Path2D();add(po,r2);const pi=new Path2D();add(pi,r1);
+  c.strokeStyle='#3f7587';c.lineWidth=1.6;c.stroke(po);
+  c.strokeStyle='#2d6cdf';c.lineWidth=1.6;c.stroke(pi);
+  // 交叉点
+  [r1,r2].forEach(r=>{
+    if(r*t<=Math.PI)return;
+    const sn=Math.PI/(r*t),cp=Math.sqrt(Math.max(0,1-sn*sn));
+    [cp,-cp].forEach(cv2=>{const s=r*cv2,R=rad(s);
+      const x=zx+R*Math.cos(Math.PI),y=zy-R*Math.sin(Math.PI);
+      c.beginPath();c.arc(x,y,4,0,TWO_PI);c.fillStyle='#d8503a';c.fill();
+      c.strokeStyle='#fff';c.lineWidth=1.2;c.stroke();});
+  });
+}
+document.querySelectorAll('.mini').forEach(drawMini);
+
+[R1,R2,T].forEach(e=>e.addEventListener('input',()=>{
+  // 保证 r2>=r1
+  if(+R2.value < +R1.value){ if(event.target===R1) R2.value=R1.value; else R1.value=R2.value; }
+  draw();
+}));
+draw();
+</script>
+</body>
+</html>

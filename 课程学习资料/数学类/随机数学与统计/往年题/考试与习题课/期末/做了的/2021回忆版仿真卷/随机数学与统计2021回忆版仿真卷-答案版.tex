@@ -1,0 +1,283 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.05cm]{geometry}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0.52em,topsep=0.28em,leftmargin=2.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+
+\title{\vspace{-1.2cm}随机数学与统计期末仿真卷\\{\large 答案版}}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.6em}
+
+\section*{一、}
+设 $m\ge 2$ 为正整数，$X,Y \iid U(0,m)$。
+\begin{enumerate}
+  \item 在正方形 $[0,m]^2$ 中，区域 $\{x+y\le 1\}$ 是直角三角形，面积为 $1/2$，故
+  \[
+    \Prob\{X+Y\le 1\}=\frac{1}{2m^2}.
+  \]
+
+  \item
+  \[
+    \Prob\{\min(X,Y)\le 1\}
+    =1-\Prob\{X>1,Y>1\}
+    =1-\left(\frac{m-1}{m}\right)^2
+    =\frac{2m-1}{m^2}.
+  \]
+
+  \item 因 $m$ 为正整数，对 $0\le w\le 1$，
+  \[
+    \Prob\{W\le w\}
+    =\sum_{k=0}^{m-1}\Prob\{k\le X<k+w\}
+    =m\cdot\frac{w}{m}=w.
+  \]
+  故 $W\sim U(0,1)$。
+\end{enumerate}
+
+\section*{二、}
+设 $X\sim \operatorname{Exp}(\lambda)$，且 $F_X(2\ln2)=3/4$。
+\begin{enumerate}
+  \item 由
+  \[
+    1-e^{-2\lambda\ln2}=\frac34
+  \]
+  得 $e^{-2\lambda\ln2}=1/4=2^{-2}$，故 $\lambda=1$。
+
+  \item 此时 $\EX X=1,\ \DD X=1$，所以
+  \[
+    \Prob\{X-\EX X>\sqrt{\DD X}\}
+    =\Prob\{X>2\}=e^{-2}.
+  \]
+
+  \item 记
+  \[
+    A_n=\frac{2S_n}{n(n+1)}.
+  \]
+  因 $\EX X_k=1$，
+  \[
+    \EX A_n=\frac{2}{n(n+1)}\sum_{k=1}^n k=1.
+  \]
+  又 $\Var(X_k)=1$ 且相互独立，
+  \[
+    \Var(A_n)=\frac{4}{n^2(n+1)^2}\sum_{k=1}^n k^2
+    =\frac{4}{n^2(n+1)^2}\cdot\frac{n(n+1)(2n+1)}{6}\to 0.
+  \]
+  由 Chebyshev 不等式，$A_n\xrightarrow{P}1$。
+\end{enumerate}
+
+\section*{三、}
+设 $\{B_t:t\ge0\}$ 为标准布朗运动。
+\begin{enumerate}
+  \item $U=2B_1+B_2-B_3$ 是正态随机变量，均值为 $0$。利用 $\Cov(B_s,B_t)=\min(s,t)$，
+  \[
+    \Var(U)=4+2+3+4-4-4=5.
+  \]
+  所以 $U\sim N(0,5)$，并且
+  \[
+    \Prob\{|U|\le\sqrt{\DD U}\}
+    =\Prob\{|N(0,1)|\le 1\}
+    =2\Phi(1)-1.
+  \]
+
+  \item 由独立增量，
+  \[
+    B_3\mid B_1=1\sim N(1,2),
+  \]
+  因而
+  \[
+    \Prob\{B_3<3\mid B_1=1\}=\Phi(\sqrt2).
+  \]
+  又 $(B_1,B_3)$ 为二维正态，
+  \[
+    B_1\mid B_3=3\sim N\left(\frac{\Cov(B_1,B_3)}{\Var(B_3)}3,\ 
+    1-\frac{\Cov(B_1,B_3)^2}{\Var(B_3)}\right)
+    =N\left(1,\frac23\right).
+  \]
+  故
+  \[
+    \Prob\{B_1<1\mid B_3=3\}=\frac12.
+  \]
+\end{enumerate}
+
+\section*{四、}
+联合密度为 $f_{X,Y}(x,y)=8xy,\ 0<y<x<1$。
+\begin{enumerate}
+  \item
+  \[
+    f_X(x)=\int_0^x 8xy\,dy=4x^3,\qquad 0<x<1.
+  \]
+  因此
+  \[
+    f_{Y\mid X=x}(y)=\frac{8xy}{4x^3}=\frac{2y}{x^2},\qquad 0<y<x.
+  \]
+  所以
+  \[
+    \EX(Y\mid X=x)=\int_0^x y\frac{2y}{x^2}\,dy=\frac{2x}{3},
+    \qquad \EX(Y\mid X)=\frac{2X}{3}.
+  \]
+
+  \item 令 $Z=X-Y$。当 $0<z<1$ 时，
+  \[
+    f_Z(z)=\int_0^{1-z}8(z+y)y\,dy
+    =4z(1-z)^2+\frac83(1-z)^3
+    =\frac43(1-z)^2(z+2).
+  \]
+  因此
+  \[
+    f_Z(z)=
+    \begin{cases}
+      \dfrac43(1-z)^2(z+2), & 0<z<1,\\
+      0, & \text{其他}.
+    \end{cases}
+  \]
+
+  \item 记 $A=\{X+Y<1\}$。由于还需满足 $0<Y<X<1$，
+  \[
+    \Prob(A)=\int_0^{1/2}\int_0^x8xy\,dy\,dx+
+    \int_{1/2}^1\int_0^{1-x}8xy\,dy\,dx=\frac16.
+  \]
+  同理
+  \[
+    \EX[X\mathbf 1_A]
+    =\int_0^{1/2}\int_0^x8x^2y\,dy\,dx+
+    \int_{1/2}^1\int_0^{1-x}8x^2y\,dy\,dx=\frac{11}{120}.
+  \]
+  故
+  \[
+    \EX(X\mid X+Y<1)=\frac{11/120}{1/6}=\frac{11}{20}.
+  \]
+\end{enumerate}
+
+\section*{五、}
+设 $X_1,\ldots,X_n \iid N(0,\sigma^2)$。
+\begin{enumerate}
+  \item 因 $\overline X\sim N(0,\sigma^2/n)$，
+  \[
+    M_{\overline X}(t)=\exp\left(\frac{\sigma^2t^2}{2n}\right),
+    \qquad
+    \varphi_{\overline X}(t)=\exp\left(-\frac{\sigma^2t^2}{2n}\right).
+  \]
+
+  \item 由正态样本的对称性或线性投影，
+  \[
+    \EX(X_i\mid \overline X)=\overline X,\qquad i=1,\ldots,n.
+  \]
+  因此
+  \[
+    \EX(2X_1+3X_2\mid \overline X)=5\overline X.
+  \]
+
+  \item $Y_1,Y_2,Y_3$ 均为零均值正态变量，且
+  \[
+    \Var(Y_1)=\Var(Y_2)=\Var(Y_3)=\sigma^2.
+  \]
+  直接计算可得 $\Cov(Y_i,Y_j)=0\ (i\ne j)$。联合正态下不相关即独立，故
+  \[
+    \frac{Y_1}{\sigma}\sim N(0,1),\qquad
+    \frac{Y_2^2+Y_3^2}{\sigma^2}\sim \chi^2_2,
+  \]
+  且二者独立。因此
+  \[
+    \frac{Y_1}{\sqrt{(Y_2^2+Y_3^2)/2}}\sim t(2).
+  \]
+
+  \item 对 $X_i\sim N(0,\sigma^2)$，
+  \[
+    \EX|X_i|=\sigma\sqrt{\frac2\pi}.
+  \]
+  所以
+  \[
+    \EX T_n=\sqrt{\frac\pi2}\,\EX|X_i|=\sigma,
+  \]
+  即 $T_n$ 是 $\sigma$ 的无偏估计。
+  又
+  \[
+    \Var(|X_i|)=\sigma^2\left(1-\frac2\pi\right).
+  \]
+  由中心极限定理，
+  \[
+    \sqrt n(T_n-\sigma)\xrightarrow{D}
+    N\left(0,\frac\pi2\sigma^2\left(1-\frac2\pi\right)\right)
+    =N\left(0,\sigma^2\left(\frac\pi2-1\right)\right).
+  \]
+\end{enumerate}
+
+\section*{六、}
+设 $f(x;\theta)=\theta x^{\theta-1},\ 0<x<1,\ \theta>0$，$T=-\sum_{i=1}^n\ln X_i$。
+\begin{enumerate}
+  \item 联合密度为
+  \[
+    \prod_{i=1}^n\theta x_i^{\theta-1}
+    =\theta^n\exp\left((\theta-1)\sum_{i=1}^n\ln x_i\right)
+    =\theta^n e^{-\theta T}\prod_{i=1}^n x_i^{-1}.
+  \]
+  由因子分解定理，$T$ 是 $\theta$ 的充分统计量。又 $T$ 的分布构成 Gamma 族
+  \[
+    f_T(t;\theta)=\frac{\theta^n}{\Gamma(n)}t^{n-1}e^{-\theta t},\qquad t>0,
+  \]
+  该一参数指数族对 $\theta>0$ 完全，故 $T$ 完全。
+
+  \item 令 $Y_i=-\ln X_i$。则
+  \[
+    \Prob\{Y_i>y\}=\Prob\{X_i<e^{-y}\}=e^{-\theta y},\qquad y>0,
+  \]
+  所以 $Y_i\sim \operatorname{Exp}(\theta)$。因此
+  \[
+    T=\sum_{i=1}^nY_i\sim \Gamma(n,\text{rate }\theta),
+  \]
+  等价地，$2\theta T\sim \chi^2_{2n}$。
+
+  \item 对数似然为
+  \[
+    \ell(\theta)=n\ln\theta-\theta T+\sum_{i=1}^n\ln x_i.
+  \]
+  求导得 $\ell'(\theta)=n/\theta-T$，故
+  \[
+    \hat\theta_{\mathrm{MLE}}=\frac{n}{T}.
+  \]
+  若 $\eta=1/\theta$，则由不变性
+  \[
+    \hat\eta_{\mathrm{MLE}}=\frac{T}{n}.
+  \]
+  且 $\EX(T/n)=1/\theta=\eta$。由于 $T$ 完全充分，$T/n$ 是 $\eta$ 的 UMVUE。
+
+  \item 由 $2\theta T\sim \chi^2_{2n}$，
+  \[
+    \Prob\left\{\chi^2_{2n,\alpha/2}\le 2\theta T\le
+    \chi^2_{2n,1-\alpha/2}\right\}=1-\alpha.
+  \]
+  所以 $\theta$ 的 $1-\alpha$ 双侧等尾置信区间为
+  \[
+    \left[
+      \frac{\chi^2_{2n,\alpha/2}}{2T},
+      \frac{\chi^2_{2n,1-\alpha/2}}{2T}
+    \right].
+  \]
+
+  \item 对 $H_0:\theta=1$ 与 $H_1:\theta=2$，似然比
+  \[
+    \frac{L(2)}{L(1)}=2^n e^{-T}.
+  \]
+  该比值随 $T$ 单调递减，因此拒绝域形如 $\{T\le c_\alpha\}$。在 $H_0$ 下，
+  $2T\sim\chi^2_{2n}$，故取
+  \[
+    c_\alpha=\frac12\chi^2_{2n,\alpha}.
+  \]
+  水平 $\alpha$ 的拒绝域为
+  \[
+    W=\left\{T\le \frac12\chi^2_{2n,\alpha}\right\}.
+  \]
+\end{enumerate}
+
+\end{document}

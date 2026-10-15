@@ -1,0 +1,120 @@
+\documentclass[UTF8,zihao=-4,fontset=windows]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.15cm]{geometry}
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=0.45em,topsep=0.25em,leftmargin=2.2em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.32em}
+
+\newcommand{\Prob}{\mathbb P}
+\newcommand{\EX}{\mathbb E}
+\newcommand{\DD}{\operatorname D}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\iid}{\overset{\mathrm{i.i.d.}}{\sim}}
+
+\title{\vspace{-1.2cm}随机数学与统计期末仿真卷\\{\large 按 2021 回忆版题型编写}}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.6em}
+
+说明：本卷共 6 大题、20 小问；每小问 5 分，共 100 分。设 $\Phi(x)$ 为标准正态分布函数，$\chi^2_{\nu,p}$ 为自由度 $\nu$ 的卡方分布 $p$ 分位数。
+
+\section*{一、}
+设 $m\ge 2$ 为正整数，$X,Y \iid U(0,m)$。
+\begin{enumerate}
+  \item 求 $\Prob\{X+Y\le 1\}$。
+  \item 求 $\Prob\{\min(X,Y)\le 1\}$。
+  \item 记 $[X]$ 为 $X$ 的整数部分，令 $W=X-[X]$，求 $W$ 的分布。
+\end{enumerate}
+
+\section*{二、}
+设 $X\sim \operatorname{Exp}(\lambda)$，且 $F_X(2\ln 2)=3/4$。
+\begin{enumerate}
+  \item 求 $\lambda$。
+  \item 求 $\Prob\{X-\EX X>\sqrt{\DD X}\}$。
+  \item 设 $X_1,X_2,\ldots$ 相互独立且均与 $X$ 同分布，令
+  \[
+    S_n=\sum_{k=1}^n kX_k.
+  \]
+  证明
+  \[
+    \frac{2S_n}{n(n+1)}\xrightarrow{P}1.
+  \]
+\end{enumerate}
+
+\section*{三、}
+设 $\{B_t:t\ge 0\}$ 为标准布朗运动，$B_0=0$。
+\begin{enumerate}
+  \item 令 $U=2B_1+B_2-B_3$，求 $U$ 的分布，并求
+  \[
+    \Prob\{|U|\le \sqrt{\DD U}\}.
+  \]
+  \item 求
+  \[
+    \Prob\{B_3<3\mid B_1=1\},\qquad
+    \Prob\{B_1<1\mid B_3=3\}.
+  \]
+\end{enumerate}
+
+\section*{四、}
+设二维随机变量 $(X,Y)$ 的联合密度为
+\[
+  f_{X,Y}(x,y)=
+  \begin{cases}
+    8xy, & 0<y<x<1,\\
+    0, & \text{其他}.
+  \end{cases}
+\]
+\begin{enumerate}
+  \item 求 $\EX(Y\mid X)$。
+  \item 令 $Z=X-Y$，求 $Z$ 的密度函数。
+  \item 求 $\EX(X\mid X+Y<1)$。
+\end{enumerate}
+
+\section*{五、}
+设 $X_1,\ldots,X_n \iid N(0,\sigma^2)$，样本均值为 $\overline X$。
+\begin{enumerate}
+  \item 求 $\overline X$ 的矩母函数 $M_{\overline X}(t)$ 和特征函数 $\varphi_{\overline X}(t)$。
+  \item 求 $\EX(2X_1+3X_2\mid \overline X)$。
+  \item 只考虑 $X_1,\ldots,X_4$，令
+  \[
+    Y_1=\frac{X_1+X_2+X_3+X_4}{2},\quad
+    Y_2=\frac{X_1-X_2}{\sqrt2},\quad
+    Y_3=\frac{X_3-X_4}{\sqrt2}.
+  \]
+  证明
+  \[
+    \frac{Y_1}{\sqrt{(Y_2^2+Y_3^2)/2}}\sim t(2).
+  \]
+  \item 令
+  \[
+    T_n=\sqrt{\frac{\pi}{2}}\cdot \frac1n\sum_{i=1}^n |X_i|.
+  \]
+  判断 $T_n$ 是否为 $\sigma$ 的无偏估计，并求 $\sqrt n(T_n-\sigma)$ 的极限分布。
+\end{enumerate}
+
+\section*{六、}
+设随机变量 $X$ 的密度为
+\[
+  f(x;\theta)=\theta x^{\theta-1},\qquad 0<x<1,\quad \theta>0,
+\]
+$X_1,\ldots,X_n$ 为来自该总体的样本，记
+\[
+  T=-\sum_{i=1}^n \ln X_i.
+\]
+\begin{enumerate}
+  \item 证明 $T$ 是 $\theta$ 的充分统计量，并判断它是否完全。
+  \item 求 $T$ 的分布。
+  \item 求 $\hat\theta_{\mathrm{MLE}}$；令 $\eta=1/\theta$，求 $\hat\eta_{\mathrm{MLE}}$，并判断 $\hat\eta_{\mathrm{MLE}}$ 是否为 $\eta$ 的 UMVUE。
+  \item 构造 $\theta$ 的 $1-\alpha$ 双侧等尾置信区间。
+  \item 对
+  \[
+    H_0:\theta=1\quad \text{vs.}\quad H_1:\theta=2
+  \]
+  作水平为 $\alpha$ 的似然比检验，给出拒绝域。
+\end{enumerate}
+
+\end{document}
