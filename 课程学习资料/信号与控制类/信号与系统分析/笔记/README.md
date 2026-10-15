@@ -2,7 +2,7 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c26-notes-01.zip)：12 个文件，56.3 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/good-person-repo/releases/download/course-materials-20261014/c26-notes-01.zip)：12 个文件，56.3 MiB。
 
 ## 可直接浏览的资料
 

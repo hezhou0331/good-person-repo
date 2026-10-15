@@ -2,7 +2,7 @@
 
 因为找我聊转系和学习资料的同学挺多，就搭了这个「好人资料库」。这里收集转系相关文件和 Q&A，也分享自己学习过程中整理的课程资料、学习网站和 AI 使用攻略，方便大家找东西。
 
-建议大家当好人，多约饭，列计划并执行。有什么问题可以来问我，也欢迎在 [Issues](https://github.com/hezhou0331/thu-transfer-guide/issues) 留言。
+建议大家当好人，多约饭，列计划并执行。有什么问题可以来问我，也欢迎在 [Issues](https://github.com/hezhou0331/good-person-repo/issues) 留言。
 
 ## 转系资料
 

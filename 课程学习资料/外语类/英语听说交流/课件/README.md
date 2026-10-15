@@ -2,9 +2,9 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c10-slides-01.zip)：51 个文件，1461.7 MiB。
-- [下载资料包 2](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c10-slides-02.zip)：44 个文件，1459.5 MiB。
-- [下载资料包 3](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c10-slides-03.zip)：29 个文件，1171.6 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/good-person-repo/releases/download/course-materials-20261014/c10-slides-01.zip)：51 个文件，1461.7 MiB。
+- [下载资料包 2](https://github.com/hezhou0331/good-person-repo/releases/download/course-materials-20261014/c10-slides-02.zip)：44 个文件，1459.5 MiB。
+- [下载资料包 3](https://github.com/hezhou0331/good-person-repo/releases/download/course-materials-20261014/c10-slides-03.zip)：29 个文件，1171.6 MiB。
 
 ## 文件清单
 
