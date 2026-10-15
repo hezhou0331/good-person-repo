@@ -2,23 +2,16 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c04-slides-01.zip)：34 个文件，107.0 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c04-slides-01.zip)：33 个文件，107.0 MiB。
 
 ## 可直接浏览的资料
 
-- [平常学习代码/猜数字/猜数字/猜数字.vcxproj.filters](%E5%B9%B3%E5%B8%B8%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81/%E7%8C%9C%E6%95%B0%E5%AD%97/%E7%8C%9C%E6%95%B0%E5%AD%97/%E7%8C%9C%E6%95%B0%E5%AD%97.vcxproj.filters)
-- [平常学习代码/猜数字＋制服诱惑/猜数字＋制服诱惑/猜数字＋制服诱惑.vcxproj.filters](%E5%B9%B3%E5%B8%B8%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81/%E7%8C%9C%E6%95%B0%E5%AD%97%EF%BC%8B%E5%88%B6%E6%9C%8D%E8%AF%B1%E6%83%91/%E7%8C%9C%E6%95%B0%E5%AD%97%EF%BC%8B%E5%88%B6%E6%9C%8D%E8%AF%B1%E6%83%91/%E7%8C%9C%E6%95%B0%E5%AD%97%EF%BC%8B%E5%88%B6%E6%9C%8D%E8%AF%B1%E6%83%91.vcxproj.filters)
-- [平常学习代码/闰年/闰年/闰年.vcxproj.filters](%E5%B9%B3%E5%B8%B8%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81/%E9%97%B0%E5%B9%B4/%E9%97%B0%E5%B9%B4/%E9%97%B0%E5%B9%B4.vcxproj.filters)
 - [程序设计基础 学习/README.md](%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80%20%E5%AD%A6%E4%B9%A0/README.md)
 
 ## 文件清单
 
 | 文件 | 存放方式 |
 | --- | --- |
-| 可能会需要的代码/可能会用到的代码块（函数）.docx | 上方资料包 |
-| 平常学习代码/猜数字/猜数字/猜数字.vcxproj.filters | 仓库内浏览 |
-| 平常学习代码/猜数字＋制服诱惑/猜数字＋制服诱惑/猜数字＋制服诱惑.vcxproj.filters | 仓库内浏览 |
-| 平常学习代码/闰年/闰年/闰年.vcxproj.filters | 仓库内浏览 |
 | 旧格式资料/计算机语言与程序设计11_Final-旧格式转换-副本90003.pptx | 上方资料包 |
 | 旧格式资料/计算机语言与程序设计11_Final-旧格式转换.pptx | 上方资料包 |
 | 旧格式资料/计算机语言与程序设计12_Final-旧格式转换-副本90004.pptx | 上方资料包 |

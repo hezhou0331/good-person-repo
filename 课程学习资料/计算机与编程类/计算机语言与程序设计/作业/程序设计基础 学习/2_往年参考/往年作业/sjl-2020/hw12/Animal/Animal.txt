@@ -1,3 +1,0 @@
-1>d:\cpp作业\animal\animal\animal.cpp(12): error C2248: “animal::age”: 无法访问 private 成员(在“animal”类中声明)
-1>          d:\cpp作业\animal\animal\animal.cpp(7) : 参见“animal::age”的声明
-1>          d:\cpp作业\animal\animal\animal.cpp(5) : 参见“animal”的声明

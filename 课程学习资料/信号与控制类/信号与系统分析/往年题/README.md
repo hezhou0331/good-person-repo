@@ -2,7 +2,7 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c26-exams-01.zip)：41 个文件，235.6 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c26-exams-01.zip)：33 个文件，221.4 MiB。
 
 ## 可直接浏览的资料
 
@@ -669,14 +669,6 @@
 | 2019-2025信号与系统真题易错点专项总结.pdf | 上方资料包 |
 | 2019-2025信号与系统真题易错点专项总结.tex | 仓库内浏览 |
 | 2019-2025往年题高频考点分析.pdf | 上方资料包 |
-| pdf版期末作业/2019信号期末.pdf | 上方资料包 |
-| pdf版期末作业/2020信号与系统2020年期末考试命题.pdf | 上方资料包 |
-| pdf版期末作业/2021信号与系统2021年期末考试命题.pdf | 上方资料包 |
-| pdf版期末作业/2022S 信号与系统期末考试试卷 A卷.pdf | 上方资料包 |
-| pdf版期末作业/2023S 信号与系统期末考试试卷（去答案版）.pdf | 上方资料包 |
-| pdf版期末作业/2024S 信号与系统期末模拟试卷（题目重构版）.pdf | 上方资料包 |
-| pdf版期末作业/2024S 信号与系统期末考试正式试卷（题目重构版）.pdf | 上方资料包 |
-| pdf版期末作业/2025S 信号与系统期末考试试卷（题目重构版）.pdf | 上方资料包 |
 | xhy_参考cheatsheet/cheatsheet_佚名/期末 佚名.docx | 上方资料包 |
 | xhy_参考cheatsheet/cheatsheet_佚名/期末 佚名.pdf | 上方资料包 |
 | 信号与系统期末/期末/信号与系统 2023年春季学期期末考试命题_信号与系统选择题-CSDN博客.mhtml | 仓库内浏览 |

@@ -2,7 +2,7 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c17-slides-01.zip)：33 个文件，34.7 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c17-slides-01.zip)：31 个文件，19.4 MiB。
 
 ## 文件清单
 
@@ -38,8 +38,6 @@
 | 实验/三相电/Z 实验五 对称和不对称三相电路 （2025.12）.pptx | 上方资料包 |
 | 实验/三相电/刘江宇-电路原理C 实验五.docx | 上方资料包 |
 | 实验/三相电/实验八 对称和不对称三相电路研究-2025.docx | 上方资料包 |
-| 实验/刘江宇电路原理C 实验三 报告 2024.docx | 上方资料包 |
-| 实验/刘江宇电路原理C 实验四 报告 .docx | 上方资料包 |
 | 电路原理课程说明.pdf | 上方资料包 |
 
 课程材料保留原作者署名，公开副本已处理检出的学号、联系方式等信息。

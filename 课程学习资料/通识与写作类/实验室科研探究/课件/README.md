@@ -2,19 +2,12 @@
 
 [返回课程说明](../README.md)
 
-- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c16-slides-01.zip)：15 个文件，15.7 MiB。
+- [下载资料包 1](https://github.com/hezhou0331/thu-transfer-guide/releases/download/course-materials-20261014/c16-slides-01.zip)：8 个文件，15.3 MiB。
 
 ## 文件清单
 
 | 文件 | 存放方式 |
 | --- | --- |
-| 刘江宇-2-你手里长出的机器人.docx | 上方资料包 |
-| 刘江宇-3-人机系统仿真.docx | 上方资料包 |
-| 刘江宇-4-医学的基础.docx | 上方资料包 |
-| 刘江宇-5-集群计算机与科学计算.docx | 上方资料包 |
-| 刘江宇-6-“钢铁裁缝”-金属的焊接与热切割.docx | 上方资料包 |
-| 刘江宇-7-涡喷发动机工艺.docx | 上方资料包 |
-| 刘江宇-8-智能机器狗探索与实践.docx | 上方资料包 |
 | 重要文件汇总/【地图】2025-2026年秋季学期课程地图.png | 上方资料包 |
 | 重要文件汇总/【学习手册】实验室科研探究教学手册-学生.docx | 上方资料包 |
 | 重要文件汇总/【日志】日志范例-旧格式转换.docx | 上方资料包 |
