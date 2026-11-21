@@ -45,6 +45,7 @@
 | 数学 | [mathsdream/THU-math-source](https://github.com/mathsdream/THU-math-source)：数学课程资料。 |
 | 某云盘 | [清华云盘分享](https://cloud.tsinghua.edu.cn/d/6ef9cef53c3740d1985e/) |
 | 某学习部 | [清华云盘分享](https://cloud.tsinghua.edu.cn/d/f8d6d9ef406e448a83f2/) |
+| 资料星球 · AI 与编程 | [查看学习资料目录](https://resources.packscena.com/categories/ai/)：中文资料索引，可按主题查找 AI 入门及部分编程资料。目录公开，资料当前通过夸克免费领取。 |
 
 部分网站或云盘可能需要登录，访问方式以对应页面为准。如果链接失效，欢迎提 Issue 或 PR 更新。
 
